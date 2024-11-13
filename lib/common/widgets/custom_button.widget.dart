@@ -12,17 +12,15 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ButtonStateCubit, ButtonState>(
-        builder: (context, state) {
-      if (state is ButtonLoadingState) {
-        return _buildLoading(context);
-      } else if (state is ButtonSuccessState) {
-        return _buildSuccess(context);
-      } else if (state is ButtonFailureState) {
-        return _buildFailure(context, state);
-      } else {
-        return _buildInitial(context);
-      }
-    });
+      builder: (context, state) {
+        return switch (state) {
+          ButtonLoadingState() => _buildLoading(context),
+          ButtonSuccessState() => _buildSuccess(context),
+          ButtonFailureState() => _buildFailure(context, state),
+          _ => _buildInitial(context),
+        };
+      },
+    );
   }
 
   Widget _buildLoading(BuildContext context) {

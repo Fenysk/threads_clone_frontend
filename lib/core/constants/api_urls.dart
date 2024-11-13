@@ -6,4 +6,6 @@ class ApiUrls {
 
   static String get register => '$baseUrl/auth/register';
   static String get login => '$baseUrl/auth/login';
+  static String get logout => '$baseUrl/auth/logout';
+  static String get getMyProfile => '$baseUrl/users/my-profile';
 }

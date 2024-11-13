@@ -3,19 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/common/bloc/button/button.state-cubit.dart';
 import 'package:threads_clone/common/bloc/button/button.state.dart';
 import 'package:threads_clone/common/widgets/custom_button.widget.dart';
-import 'package:threads_clone/data/models/register.request.dart';
+import 'package:threads_clone/data/dto/register.request.dart';
 import 'package:threads_clone/domain/usecases/register.usecase.dart';
-import 'package:threads_clone/presentation/home/home.page.dart';
+import 'package:threads_clone/presentation/auth/pages/login.page.dart';
+import 'package:threads_clone/presentation/home/pages/home.page.dart';
 import 'package:threads_clone/service_locator.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
 
-  final _pseudoController = TextEditingController();
-
-  final _emailController = TextEditingController();
-
-  final _passwordController = TextEditingController();
+  final _pseudoController = TextEditingController(text: 'Test');
+  final _emailController = TextEditingController(text: 'test@test.test');
+  final _passwordController = TextEditingController(text: 'Password1@');
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +101,13 @@ class RegisterPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Already have an account? Login'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
+                  child: const Text('Go to login'),
                 ),
               ],
             ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:threads_clone/common/bloc/button/button.state-cubit.dart';
+import 'package:threads_clone/common/bloc/auth/auth.state-cubit.dart';
+import 'package:threads_clone/common/bloc/auth/auth.state.dart';
 import 'package:threads_clone/presentation/auth/pages/register.page.dart';
+import 'package:threads_clone/presentation/home/pages/home.page.dart';
 import 'package:threads_clone/service_locator.dart';
 
 void main() async {
@@ -25,9 +27,17 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ButtonStateCubit(),
+      create: (context) => AuthStateCubit()..appStarted(),
       child: MaterialApp(
-        home: RegisterPage(),
+        home: BlocBuilder<AuthStateCubit, AuthState>(
+          builder: (context, state) {
+            return switch (state) {
+              AuthenticatedState() => const HomePage(),
+              UnauthenticatedState() => RegisterPage(),
+              _ => Container(),
+            };
+          },
+        ),
       ),
     );
   }
