@@ -38,11 +38,10 @@ class MainApp extends StatelessWidget {
             return switch (state) {
               AuthenticatedState() => const HomePage(),
               UnauthenticatedState() => const WelcomePage(),
-              _ => Container(),
+              _ => const Center(child: CircularProgressIndicator()),
             };
           },
         ),
-        initialRoute: RoutesNameConfig.welcomePage,
         onGenerateRoute: RoutesConfig.generateRoute,
       ),
     );

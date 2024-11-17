@@ -15,13 +15,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Center(child: const Icon(Icons.home)),
       ),
       body: SafeArea(
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(
-                create: (context) => UserDisplayStateCubit()..displayUser()),
+            BlocProvider(create: (context) => UserDisplayStateCubit()..displayUser()),
             BlocProvider(create: (context) => ButtonStateCubit()),
           ],
           child: BlocListener<ButtonStateCubit, ButtonState>(
