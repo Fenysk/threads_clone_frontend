@@ -59,7 +59,7 @@ class CustomButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.red,
       ),
-      child: Text('Failure: ${state.errorMessage}'),
+      child: Text(state.errorMessage),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:threads_clone/core/configs/theme/theme.config.dart';
 import 'package:threads_clone/common/bloc/auth/auth.state-cubit.dart';
 import 'package:threads_clone/common/bloc/auth/auth.state.dart';
 import 'package:threads_clone/core/configs/routes/routes-name.config.dart';
@@ -31,6 +32,7 @@ class MainApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthStateCubit()..appStarted(),
       child: MaterialApp(
+        theme: ThemeConfig.theme,
         home: BlocBuilder<AuthStateCubit, AuthState>(
           builder: (context, state) {
             return switch (state) {
