@@ -4,9 +4,9 @@ import 'package:threads_clone/common/bloc/button/button.state-cubit.dart';
 import 'package:threads_clone/common/bloc/button/button.state.dart';
 import 'package:threads_clone/common/widgets/custom_button.widget.dart';
 import 'package:threads_clone/domain/usecases/logout.usecase.dart';
+import 'package:threads_clone/presentation/auth/tabs/register.tab.dart';
 import 'package:threads_clone/presentation/home/bloc/user-display.state-cubit.dart';
 import 'package:threads_clone/presentation/home/widgets/user-display.widget.dart';
-import 'package:threads_clone/core/configs/routes/routes-name.config.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -27,9 +27,9 @@ class HomePage extends StatelessWidget {
           child: BlocListener<ButtonStateCubit, ButtonState>(
             listener: (context, state) {
               if (state is ButtonSuccessState) {
-                Navigator.pushReplacementNamed(
+                Navigator.pushReplacement(
                   context,
-                  RoutesNameConfig.welcomePage,
+                  MaterialPageRoute(builder: (context) => RegisterTab()),
                 );
               }
             },
