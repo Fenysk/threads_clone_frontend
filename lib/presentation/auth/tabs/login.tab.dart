@@ -26,9 +26,10 @@ class LoginTab extends StatelessWidget {
       child: BlocListener<ButtonStateCubit, ButtonState>(
         listener: (context, state) {
           if (state is ButtonSuccessState) {
-            Navigator.pushReplacementNamed(
+            Navigator.pushNamedAndRemoveUntil(
               context,
               RoutesNameConfig.homePage,
+              (route) => false,
             );
           }
 

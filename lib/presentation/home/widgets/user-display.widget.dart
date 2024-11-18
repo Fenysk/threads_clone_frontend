@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:threads_clone/presentation/home/bloc/user-display.state-cubit.dart';
-import 'package:threads_clone/presentation/home/bloc/user-display.state.dart';
+import 'package:threads_clone/presentation/home/bloc/user/user-display.state-cubit.dart';
+import 'package:threads_clone/presentation/home/bloc/user/user-display.state.dart';
 
 class UserDisplayWidget extends StatelessWidget {
   const UserDisplayWidget({super.key});
@@ -19,11 +19,9 @@ class UserDisplayWidget extends StatelessWidget {
     );
   }
 
-  Center buildLoadingContent() =>
-      const Center(child: CircularProgressIndicator());
+  Center buildLoadingContent() => const Center(child: CircularProgressIndicator());
 
-  Center buildFailureContent(UserDisplayFailure state) =>
-      Center(child: Text(state.errorMessage));
+  Center buildFailureContent(UserDisplayFailure state) => Center(child: Text(state.errorMessage));
 
   Center buildLoadedContent(UserDisplayLoaded state) => Center(
         child: Column(

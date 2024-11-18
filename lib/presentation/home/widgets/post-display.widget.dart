@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:threads_clone/core/utils/date.util.dart';
 import 'package:threads_clone/domain/entities/posts/post.entity.dart';
 
 class PostDisplayWidget extends StatelessWidget {
@@ -51,7 +52,7 @@ class PostDisplayWidget extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          displayDateAgo,
+                          DateUtil.getDisplayDateAgo(post.createdAt),
                           style: const TextStyle(color: Colors.grey),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -65,7 +66,10 @@ class PostDisplayWidget extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                getRichTextContent(),
+                getRichTextContent(
+                  onHashtagTap: (hashtag) => print('Hashtag tapped: $hashtag'),
+                  onMentionTap: (mention) => print('Mention tapped: $mention'),
+                ),
                 getMediaContent(),
                 const SizedBox(height: 16),
                 getFooterContent(),
@@ -129,7 +133,10 @@ class PostDisplayWidget extends StatelessWidget {
     );
   }
 
-  Text getRichTextContent() {
+  Text getRichTextContent({
+    required Function(String) onHashtagTap,
+    required Function(String) onMentionTap,
+  }) {
     final List<TextSpan> textSpans = [];
     final List<String> words = post.textContent.split(' ');
 
@@ -144,8 +151,7 @@ class PostDisplayWidget extends StatelessWidget {
               style: const TextStyle(color: Colors.blue),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  // TODO: Handle hashtag tap
-                  print('Hashtag tapped: $word');
+                  onHashtagTap(word);
                 },
             ),
           );
@@ -157,8 +163,7 @@ class PostDisplayWidget extends StatelessWidget {
               style: const TextStyle(color: Colors.green),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  // TODO: Handle mention tap
-                  print('Mention tapped: $word');
+                  onMentionTap(word);
                 },
             ),
           );
@@ -172,19 +177,5 @@ class PostDisplayWidget extends StatelessWidget {
       TextSpan(children: textSpans),
       overflow: TextOverflow.ellipsis,
     );
-  }
-
-  String get displayDateAgo {
-    final now = DateTime.now();
-    final difference = now.difference(post.createdAt);
-    if (difference.inSeconds < 60) {
-      return '${difference.inSeconds} s';
-    } else if (difference.inMinutes < 60) {
-      return '${difference.inMinutes} mn';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours} h';
-    } else {
-      return '${difference.inDays} j';
-    }
   }
 }
