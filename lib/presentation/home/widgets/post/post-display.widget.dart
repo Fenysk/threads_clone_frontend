@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:threads_clone/core/utils/date.util.dart';
 import 'package:threads_clone/domain/entities/posts/post.entity.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
 class PostDisplayWidget extends StatelessWidget {
   final PostEntity post;
@@ -25,13 +26,18 @@ class PostDisplayWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // TODO: Avatar and line to answer
               CircleAvatar(
                 foregroundImage: NetworkImage(post.Author.Profile?.avatarUrl ?? ''),
                 onForegroundImageError: (exception, stackTrace) => print('Error loading avatar: $exception'),
                 backgroundColor: Colors.grey,
-                child: post.Author.Profile?.avatarUrl == null ? Text(post.Author.Profile?.pseudo?.toUpperCase().substring(0, 2) ?? '') : null,
+                child: post.Author.Profile?.avatarUrl == null
+                    ? Text(
+                        post.Author.Profile?.pseudo?.toUpperCase().substring(0, 2) ?? '',
+                        style: const TextStyle(color: Colors.black),
+                      )
+                    : null,
               ),
+              // TODO: add line to link with answer
             ],
           ),
           const SizedBox(width: 16),
@@ -59,7 +65,7 @@ class PostDisplayWidget extends StatelessWidget {
                       ],
                     ),
                     const Icon(
-                      Icons.more_horiz,
+                      FluentIcons.more_horizontal_20_regular,
                       size: 20,
                       color: Colors.grey,
                     ),
@@ -87,7 +93,7 @@ class PostDisplayWidget extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Icon(Icons.favorite_outline, size: 20),
+            const Icon(FluentIcons.heart_20_regular),
             if (post.count.Likes > 0) const SizedBox(width: 4),
             if (post.count.Likes > 0) Text('${post.count.Likes}', style: const TextStyle(color: Colors.grey)),
           ],
@@ -95,7 +101,7 @@ class PostDisplayWidget extends StatelessWidget {
         const SizedBox(width: 32),
         Row(
           children: [
-            const Icon(Icons.comment_outlined, size: 20),
+            const Icon(FluentIcons.comment_20_regular),
             if (post.count.Replies > 0) const SizedBox(width: 4),
             if (post.count.Replies > 0) Text('${post.count.Replies}', style: const TextStyle(color: Colors.grey)),
           ],
@@ -103,7 +109,7 @@ class PostDisplayWidget extends StatelessWidget {
         const SizedBox(width: 32),
         Row(
           children: [
-            const Icon(Icons.repeat, size: 20),
+            const Icon(FluentIcons.arrow_repeat_all_20_regular),
             if (post.count.Reposts > 0) const SizedBox(width: 4),
             if (post.count.Reposts > 0) Text('${post.count.Reposts}', style: const TextStyle(color: Colors.grey)),
           ],
@@ -111,7 +117,7 @@ class PostDisplayWidget extends StatelessWidget {
         const SizedBox(width: 32),
         const Row(
           children: [
-            Icon(Icons.share, size: 20),
+            Icon(FluentIcons.share_ios_20_regular),
           ],
         ),
       ],

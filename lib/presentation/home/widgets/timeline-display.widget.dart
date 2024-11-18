@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/common/bloc/user/timeline.state-cubit.dart';
 import 'package:threads_clone/common/bloc/user/timeline.state.dart';
-import 'package:threads_clone/presentation/home/widgets/post-display.widget.dart';
+import 'package:threads_clone/presentation/home/widgets/post/post-display.widget.dart';
 
 class TimelineDisplayWidget extends StatelessWidget {
   const TimelineDisplayWidget({super.key});
