@@ -4,7 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:threads_clone/core/configs/theme/theme.config.dart';
 import 'package:threads_clone/common/bloc/auth/auth.state-cubit.dart';
 import 'package:threads_clone/common/bloc/auth/auth.state.dart';
-import 'package:threads_clone/core/configs/routes/routes-name.config.dart';
 import 'package:threads_clone/core/configs/routes/routes.config.dart';
 import 'package:threads_clone/presentation/auth/welcome.page.dart';
 import 'package:threads_clone/presentation/home/pages/home.page.dart';
@@ -33,14 +32,16 @@ class MainApp extends StatelessWidget {
       create: (context) => AuthStateCubit()..appStarted(),
       child: MaterialApp(
         theme: ThemeConfig.theme,
-        home: BlocBuilder<AuthStateCubit, AuthState>(
-          builder: (context, state) {
-            return switch (state) {
-              AuthenticatedState() => const HomePage(),
-              UnauthenticatedState() => const WelcomePage(),
-              _ => const Center(child: CircularProgressIndicator()),
-            };
-          },
+        home: Scaffold(
+          body: BlocBuilder<AuthStateCubit, AuthState>(
+            builder: (context, state) {
+              return switch (state) {
+                AuthenticatedState() => const HomePage(),
+                UnauthenticatedState() => const WelcomePage(),
+                _ => const Center(child: CircularProgressIndicator()),
+              };
+            },
+          ),
         ),
         onGenerateRoute: RoutesConfig.generateRoute,
       ),

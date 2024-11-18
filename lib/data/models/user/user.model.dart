@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:threads_clone/core/enums/role.enum.dart';
-import 'package:threads_clone/data/models/profile.model.dart';
-import 'package:threads_clone/domain/entities/user.entity.dart';
+import 'package:threads_clone/data/models/user/profile.model.dart';
+import 'package:threads_clone/domain/entities/user/user.entity.dart';
 
 class UserModel {
   final String id;
@@ -26,15 +26,12 @@ class UserModel {
       email: map['email'] as String?,
       createdAt: DateTime.parse(map['createdAt'] as String),
       updatedAt: DateTime.parse(map['updatedAt'] as String),
-      roles: List<Role>.from((map['roles'] as List).map((role) => Role.values
-          .firstWhere(
-              (e) => e.toString().split('.').last.toLowerCase() == role))),
+      roles: List<Role>.from((map['roles'] as List).map((role) => Role.values.firstWhere((e) => e.toString().split('.').last.toLowerCase() == role))),
       Profile: ProfileModel.fromMap(map['Profile'] as Map<String, dynamic>),
     );
   }
 
-  factory UserModel.fromJson(String source) =>
-      UserModel.fromMap(json.decode(source));
+  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
 }
 
 extension UserModelExtension on UserModel {

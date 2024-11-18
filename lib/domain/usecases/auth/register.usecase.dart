@@ -7,8 +7,8 @@ import 'package:threads_clone/service_locator.dart';
 class RegisterUsecase implements Usecase<Either, RegisterRequest> {
   @override
   Future<Either> call({
-    RegisterRequest? loginRequest,
+    RegisterRequest? request,
   }) async {
-    return serviceLocator<AuthRepository>().register(loginRequest!);
+    return serviceLocator<AuthRepository>().register(request!);
   }
 }

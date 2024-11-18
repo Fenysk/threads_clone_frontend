@@ -1,3 +1,3 @@
 abstract class Usecase<Type, Params> {
-  Future<Type> call({Params? loginRequest});
+  Future<Type> call({Params? request});
 }

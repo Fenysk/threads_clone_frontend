@@ -1,4 +1,4 @@
-import 'package:threads_clone/domain/entities/user.entity.dart';
+import 'package:threads_clone/domain/entities/user/user.entity.dart';
 
 abstract class UserDisplayState {}
 

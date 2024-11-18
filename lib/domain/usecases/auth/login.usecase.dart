@@ -1,13 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:threads_clone/core/usecase/usecase.dart';
+import 'package:threads_clone/data/dto/login.request.dart';
 import 'package:threads_clone/domain/repository/auth.repository.dart';
 import 'package:threads_clone/service_locator.dart';
 
-class LogoutUsecase implements Usecase<Either, dynamic> {
+class LoginUsecase implements Usecase<Either, LoginRequest> {
   @override
   Future<Either> call({
-    dynamic loginRequest,
+    LoginRequest? request,
   }) async {
-    return serviceLocator<AuthRepository>().logout();
+    return serviceLocator<AuthRepository>().login(request!);
   }
 }

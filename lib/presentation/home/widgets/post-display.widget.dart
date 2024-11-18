@@ -1,0 +1,190 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:threads_clone/domain/entities/posts/post.entity.dart';
+
+class PostDisplayWidget extends StatelessWidget {
+  final PostEntity post;
+
+  const PostDisplayWidget({
+    super.key,
+    required this.post,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.3))),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // TODO: Avatar and line to answer
+              CircleAvatar(
+                foregroundImage: NetworkImage(post.Author.Profile?.avatarUrl ?? ''),
+                onForegroundImageError: (exception, stackTrace) => print('Error loading avatar: $exception'),
+                backgroundColor: Colors.grey,
+                child: post.Author.Profile?.avatarUrl == null ? Text(post.Author.Profile?.pseudo?.toUpperCase().substring(0, 2) ?? '') : null,
+              ),
+            ],
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          post.Author.Profile?.pseudo ?? 'Unknown Author',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          displayDateAgo,
+                          style: const TextStyle(color: Colors.grey),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    const Icon(
+                      Icons.more_horiz,
+                      size: 20,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                getRichTextContent(),
+                getMediaContent(),
+                const SizedBox(height: 16),
+                getFooterContent(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget getFooterContent() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.favorite_outline, size: 20),
+            if (post.count.Likes > 0) const SizedBox(width: 4),
+            if (post.count.Likes > 0) Text('${post.count.Likes}', style: const TextStyle(color: Colors.grey)),
+          ],
+        ),
+        const SizedBox(width: 32),
+        Row(
+          children: [
+            const Icon(Icons.comment_outlined, size: 20),
+            if (post.count.Replies > 0) const SizedBox(width: 4),
+            if (post.count.Replies > 0) Text('${post.count.Replies}', style: const TextStyle(color: Colors.grey)),
+          ],
+        ),
+        const SizedBox(width: 32),
+        Row(
+          children: [
+            const Icon(Icons.repeat, size: 20),
+            if (post.count.Reposts > 0) const SizedBox(width: 4),
+            if (post.count.Reposts > 0) Text('${post.count.Reposts}', style: const TextStyle(color: Colors.grey)),
+          ],
+        ),
+        const SizedBox(width: 32),
+        const Row(
+          children: [
+            Icon(Icons.share, size: 20),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget getMediaContent() {
+    if (post.mediaUrls.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: const Text('Media content'),
+    );
+  }
+
+  Text getRichTextContent() {
+    final List<TextSpan> textSpans = [];
+    final List<String> words = post.textContent.split(' ');
+
+    for (var word in words) {
+      final firstCharacter = word[0];
+
+      switch (firstCharacter) {
+        case '#':
+          textSpans.add(
+            TextSpan(
+              text: ' $word',
+              style: const TextStyle(color: Colors.blue),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  // TODO: Handle hashtag tap
+                  print('Hashtag tapped: $word');
+                },
+            ),
+          );
+          break;
+        case '@':
+          textSpans.add(
+            TextSpan(
+              text: ' $word',
+              style: const TextStyle(color: Colors.green),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  // TODO: Handle mention tap
+                  print('Mention tapped: $word');
+                },
+            ),
+          );
+          break;
+        default:
+          textSpans.add(TextSpan(text: ' $word', style: const TextStyle(fontSize: 16)));
+      }
+    }
+
+    return Text.rich(
+      TextSpan(children: textSpans),
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+
+  String get displayDateAgo {
+    final now = DateTime.now();
+    final difference = now.difference(post.createdAt);
+    if (difference.inSeconds < 60) {
+      return '${difference.inSeconds} s';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} mn';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours} h';
+    } else {
+      return '${difference.inDays} j';
+    }
+  }
+}

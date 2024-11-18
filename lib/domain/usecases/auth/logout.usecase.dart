@@ -1,12 +1,13 @@
+import 'package:dartz/dartz.dart';
 import 'package:threads_clone/core/usecase/usecase.dart';
 import 'package:threads_clone/domain/repository/auth.repository.dart';
 import 'package:threads_clone/service_locator.dart';
 
-class IsLoggedInUsecase implements Usecase<bool, dynamic> {
+class LogoutUsecase implements Usecase<Either, dynamic> {
   @override
-  Future<bool> call({
-    dynamic loginRequest,
+  Future<Either> call({
+    dynamic request,
   }) async {
-    return serviceLocator<AuthRepository>().isLoggedIn();
+    return serviceLocator<AuthRepository>().logout();
   }
 }

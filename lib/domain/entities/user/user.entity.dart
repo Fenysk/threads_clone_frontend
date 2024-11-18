@@ -1,5 +1,5 @@
 import 'package:threads_clone/core/enums/role.enum.dart';
-import 'package:threads_clone/domain/entities/profile.entity.dart';
+import 'package:threads_clone/domain/entities/user/profile.entity.dart';
 
 class UserEntity {
   final String id;

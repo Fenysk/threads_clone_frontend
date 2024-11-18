@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/common/bloc/button/button.state-cubit.dart';
 import 'package:threads_clone/common/bloc/button/button.state.dart';
 import 'package:threads_clone/common/widgets/custom_button.widget.dart';
+import 'package:threads_clone/core/configs/routes/routes-name.config.dart';
 import 'package:threads_clone/data/dto/login.request.dart';
-import 'package:threads_clone/domain/usecases/login.usecase.dart';
-import 'package:threads_clone/presentation/home/pages/home.page.dart';
+import 'package:threads_clone/domain/usecases/auth/login.usecase.dart';
 import 'package:threads_clone/service_locator.dart';
 
 class LoginTab extends StatelessWidget {
@@ -26,10 +26,9 @@ class LoginTab extends StatelessWidget {
       child: BlocListener<ButtonStateCubit, ButtonState>(
         listener: (context, state) {
           if (state is ButtonSuccessState) {
-            Navigator.pushAndRemoveUntil(
+            Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-              (route) => false,
+              RoutesNameConfig.homePage,
             );
           }
 

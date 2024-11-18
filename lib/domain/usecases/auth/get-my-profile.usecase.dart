@@ -6,7 +6,7 @@ import 'package:threads_clone/service_locator.dart';
 class GetMyProfileUsecase implements Usecase<Either, dynamic> {
   @override
   Future<Either> call({
-    dynamic loginRequest,
+    dynamic request,
   }) async {
     return serviceLocator<AuthRepository>().getMyProfile();
   }

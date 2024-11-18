@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:threads_clone/domain/entities/profile.entity.dart';
+import 'package:threads_clone/domain/entities/user/profile.entity.dart';
 
 class ProfileModel {
   final String userId;
@@ -29,8 +29,7 @@ class ProfileModel {
     );
   }
 
-  factory ProfileModel.fromJson(String source) =>
-      ProfileModel.fromMap(json.decode(source));
+  factory ProfileModel.fromJson(String source) => ProfileModel.fromMap(json.decode(source));
 }
 
 extension ProfileModelExtension on ProfileModel {

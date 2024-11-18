@@ -4,7 +4,7 @@ import 'package:threads_clone/common/bloc/button/button.state-cubit.dart';
 import 'package:threads_clone/common/bloc/button/button.state.dart';
 import 'package:threads_clone/common/widgets/custom_button.widget.dart';
 import 'package:threads_clone/data/dto/register.request.dart';
-import 'package:threads_clone/domain/usecases/register.usecase.dart';
+import 'package:threads_clone/domain/usecases/auth/register.usecase.dart';
 import 'package:threads_clone/presentation/home/pages/home.page.dart';
 import 'package:threads_clone/service_locator.dart';
 
