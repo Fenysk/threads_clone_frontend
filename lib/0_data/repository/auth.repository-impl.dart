@@ -64,9 +64,11 @@ class AuthRepositoryImpl extends AuthRepository {
         SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
         final accessToken = response.data['tokens']['accessToken'];
+        final refreshToken = response.data['tokens']['refreshToken'];
         final user = response.data['user'];
 
         if (accessToken != null) sharedPreferences.setString('accessToken', accessToken);
+        if (refreshToken != null) sharedPreferences.setString('refreshToken', refreshToken);
 
         return Right(user);
       },
@@ -85,6 +87,30 @@ class AuthRepositoryImpl extends AuthRepository {
         sharedPreferences.clear();
 
         return Right(data);
+      },
+    );
+  }
+
+  @override
+  Future<Either> refresh() async {
+    final refreshToken = await serviceLocator<AuthLocalService>().getRefreshToken();
+
+    Either result = await serviceLocator<AuthApiService>().refresh(refreshToken);
+
+    return result.fold(
+      (error) => Left(error),
+      (data) async {
+        Response response = data;
+
+        final accessToken = response.data['tokens']['accessToken'];
+        final refreshToken = response.data['tokens']['refreshToken'];
+
+        SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+        if (accessToken != null) sharedPreferences.setString('accessToken', accessToken);
+        if (refreshToken != null) sharedPreferences.setString('refreshToken', refreshToken);
+
+        return Right(accessToken);
       },
     );
   }

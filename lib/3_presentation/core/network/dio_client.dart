@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'interceptors.dart';
+import 'package:threads_clone/3_presentation/core/network/refresh-token.interceptor.dart';
+import 'logger.interceptor.dart';
 
 class DioClient {
   late final Dio _dio;
@@ -16,6 +17,7 @@ class DioClient {
           ),
         )..interceptors.addAll([
             LoggerInterceptor(),
+            RefreshTokenInterceptor(),
           ]);
 
   Future<Response> get(
@@ -110,5 +112,9 @@ class DioClient {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<Response> retry(RequestOptions options) async {
+    return await _dio.fetch(options);
   }
 }

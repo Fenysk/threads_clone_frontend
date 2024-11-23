@@ -12,4 +12,6 @@ abstract class AuthRepository {
   Future<Either> login(LoginRequest loginRequest);
 
   Future<Either> logout();
+
+  Future<Either> refresh();
 }

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:threads_clone/0_data/source/auth/auth-local.service.dart';
 import 'package:threads_clone/3_presentation/core/constants/api_urls.dart';
 import 'package:threads_clone/3_presentation/core/network/dio_client.dart';
 import 'package:threads_clone/0_data/dto/login.request.dart';
@@ -15,6 +15,8 @@ abstract class AuthApiService {
   Future<Either> login(LoginRequest loginRequest);
 
   Future<Either> logout();
+
+  Future<Either> refresh(String refreshToken);
 }
 
 class AuthApiServiceImpl extends AuthApiService {
@@ -35,9 +37,7 @@ class AuthApiServiceImpl extends AuthApiService {
   @override
   Future<Either> getMyProfile() async {
     try {
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-      final accessToken = sharedPreferences.getString('accessToken');
+      final accessToken = await serviceLocator<AuthLocalService>().getAccessToken();
 
       final response = await serviceLocator<DioClient>().get(
         ApiUrls.getMyProfile,
@@ -71,15 +71,31 @@ class AuthApiServiceImpl extends AuthApiService {
   @override
   Future<Either> logout() async {
     try {
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-      final accessToken = sharedPreferences.getString('accessToken');
+      final accessToken = await serviceLocator<AuthLocalService>().getAccessToken();
 
       final response = await serviceLocator<DioClient>().post(
         ApiUrls.logout,
         options: Options(
           headers: {
             'Authorization': 'Bearer $accessToken',
+          },
+        ),
+      );
+
+      return Right(response);
+    } on DioException catch (error) {
+      return Left(error.response!.data['message']);
+    }
+  }
+
+  @override
+  Future<Either> refresh(String refreshToken) async {
+    try {
+      final response = await serviceLocator<DioClient>().post(
+        ApiUrls.refresh,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $refreshToken',
           },
         ),
       );

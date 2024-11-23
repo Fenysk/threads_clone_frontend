@@ -1,6 +1,8 @@
 include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
+    avoid_print: ignore
+    avoid_renaming_method_parameters: ignore
     curly_braces_in_flow_control_structures: ignore
     non_constant_identifier_names: ignore
     unused_element: ignore
