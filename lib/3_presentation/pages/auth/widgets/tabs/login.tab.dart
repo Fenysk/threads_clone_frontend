@@ -57,10 +57,11 @@ class LoginTab extends StatelessWidget {
                 TextField(
                   controller: _emailController,
                   style: themeData.textTheme.bodyMedium,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Email',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email_outlined),
+                    labelStyle: themeData.textTheme.bodyMedium,
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.email_outlined),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -69,10 +70,11 @@ class LoginTab extends StatelessWidget {
                   obscureText: true,
                   controller: _passwordController,
                   style: themeData.textTheme.bodyMedium,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Password',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock_outline),
+                    labelStyle: themeData.textTheme.bodyMedium,
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.lock_outline),
                   ),
                 ),
                 const SizedBox(height: 24),

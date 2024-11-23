@@ -24,42 +24,53 @@ class CustomButton extends StatelessWidget {
   }
 
   Widget _buildLoading(BuildContext context) {
+    final themeData = Theme.of(context);
+
     return ElevatedButton(
-      onPressed: null,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.grey,
-      ),
+      onPressed: () {},
+      style: themeData.elevatedButtonTheme.style,
       child: const CircularProgressIndicator(),
     );
   }
 
   Widget _buildInitial(BuildContext context) {
+    final themeData = Theme.of(context);
+
     return ElevatedButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue,
+      style: themeData.elevatedButtonTheme.style,
+      child: Text(
+        text,
+        style: themeData.textTheme.bodyMedium!.copyWith(color: themeData.primaryColor),
       ),
-      child: Text(text),
     );
   }
 
   Widget _buildSuccess(BuildContext context) {
+    final themeData = Theme.of(context);
+
     return ElevatedButton(
       onPressed: null,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
+      style: themeData.elevatedButtonTheme.style,
+      child: Text(
+        'Success',
+        style: themeData.textTheme.bodyMedium,
       ),
-      child: const Text('Success'),
     );
   }
 
   Widget _buildFailure(BuildContext context, ButtonFailureState state) {
+    final themeData = Theme.of(context);
+
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.red,
       ),
-      child: Text(state.errorMessage),
+      child: Text(
+        state.errorMessage,
+        style: themeData.textTheme.bodyMedium,
+      ),
     );
   }
 }

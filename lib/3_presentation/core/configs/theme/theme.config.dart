@@ -227,6 +227,17 @@ class AppThemeConfig {
           ),
           prefixIconColor: _lightModePrimaryTextColor,
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+        primaryColor: _lightModeBackgroundColor,
       );
 
   static ThemeData get darkTheme => ThemeData(
@@ -281,5 +292,16 @@ class AppThemeConfig {
           ),
           prefixIconColor: _darkModePrimaryTextColor,
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+        primaryColor: _darkModeBackgroundColor,
       );
 }
