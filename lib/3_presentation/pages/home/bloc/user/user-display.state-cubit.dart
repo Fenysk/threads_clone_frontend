@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:threads_clone/1_domain/usecases/auth/get-my-profile.usecase.dart';
+import 'package:threads_clone/1_domain/usecases/users/get-my-profile.usecase.dart';
 import 'package:threads_clone/3_presentation/pages/home/bloc/user/user-display.state.dart';
 import 'package:threads_clone/service_locator.dart';
 

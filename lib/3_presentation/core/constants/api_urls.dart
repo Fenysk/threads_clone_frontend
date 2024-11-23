@@ -11,6 +11,7 @@ class ApiUrls {
 
   // Users
   static String get getMyProfile => '$baseUrl/users/my-profile';
+  static String get checkIfPseudoExist => '$baseUrl/users/check-pseudo';
 
   // Timeline
   static String get getForYouTimeline => '$baseUrl/timeline/for-you';

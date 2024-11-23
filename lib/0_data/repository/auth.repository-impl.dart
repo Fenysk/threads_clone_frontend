@@ -37,23 +37,6 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either> getMyProfile() async {
-    Either result = await serviceLocator<AuthApiService>().getMyProfile();
-
-    return result.fold(
-      (error) => Left(error),
-      (data) async {
-        Response response = data;
-
-        UserModel userModel = UserModel.fromMap(response.data);
-        UserEntity user = userModel.toEntity();
-
-        return Right(user);
-      },
-    );
-  }
-
-  @override
   Future<Either> login(LoginRequest loginRequest) async {
     Either result = await serviceLocator<AuthApiService>().login(loginRequest);
 

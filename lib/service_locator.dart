@@ -1,4 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:threads_clone/0_data/repository/users.repository-impl.dart';
+import 'package:threads_clone/0_data/source/users/users-api.service.dart';
+import 'package:threads_clone/1_domain/repository/users.repository.dart';
 import 'package:threads_clone/3_presentation/core/network/dio_client.dart';
 import 'package:threads_clone/0_data/repository/auth.repository-impl.dart';
 import 'package:threads_clone/0_data/repository/posts.repository-impl.dart';
@@ -10,7 +13,7 @@ import 'package:threads_clone/0_data/source/timeline/timeline-api.service.dart';
 import 'package:threads_clone/1_domain/repository/auth.repository.dart';
 import 'package:threads_clone/1_domain/repository/posts.repository.dart';
 import 'package:threads_clone/1_domain/repository/timeline.repository.dart';
-import 'package:threads_clone/1_domain/usecases/auth/get-my-profile.usecase.dart';
+import 'package:threads_clone/1_domain/usecases/users/get-my-profile.usecase.dart';
 import 'package:threads_clone/1_domain/usecases/auth/is_loggin_in.usercase.dart';
 import 'package:threads_clone/1_domain/usecases/auth/login.usecase.dart';
 import 'package:threads_clone/1_domain/usecases/auth/logout.usecase.dart';
@@ -28,6 +31,8 @@ void setupServiceLocator() {
   // Auth
   serviceLocator.registerSingleton<AuthApiService>(AuthApiServiceImpl());
   serviceLocator.registerSingleton<AuthLocalService>(AuthLocalServiceImpl());
+  // Users
+  serviceLocator.registerSingleton<UsersApiService>(UsersApiServiceImpl());
   // Timeline
   serviceLocator.registerSingleton<TimelineApiService>(TimelineApiServiceImpl());
   // Posts
@@ -37,6 +42,7 @@ void setupServiceLocator() {
   serviceLocator.registerSingleton<AuthRepository>(AuthRepositoryImpl());
   serviceLocator.registerSingleton<TimelineRepository>(TimelineRepositoryImpl());
   serviceLocator.registerSingleton<PostsRepository>(PostsRepositoryImpl());
+  serviceLocator.registerSingleton<UsersRepository>(UsersRepositoryImpl());
   //// Usecases
   // Auth
   serviceLocator.registerSingleton<RegisterUsecase>(RegisterUsecase());
