@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:threads_clone/1_domain/repository/users.repository.dart';
+import 'package:threads_clone/3_presentation/core/configs/router/routes-name.config.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.state-cubit.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.state.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/custom_button.widget.dart';
@@ -96,10 +98,7 @@ class RegisterTab extends StatelessWidget {
       child: BlocListener<ButtonStateCubit, ButtonState>(
         listener: (context, state) {
           if (state is ButtonSuccessState) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
+            GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.homePage);
           }
 
           if (state is ButtonFailureState) {

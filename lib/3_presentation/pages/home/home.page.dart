@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.state-cubit.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.state.dart';
-import 'package:threads_clone/3_presentation/core/services/theme_service.dart';
 import 'package:threads_clone/3_presentation/pages/home/bloc/timeline/timeline.state-cubit.dart';
 import 'package:threads_clone/3_presentation/pages/home/bloc/timeline/timeline.state.dart';
 import 'package:threads_clone/0_data/dto/pagination.request.dart';
@@ -11,7 +10,7 @@ import 'package:threads_clone/3_presentation/pages/home/bloc/user/user-display.s
 import 'package:threads_clone/3_presentation/pages/home/widgets/logout-button.widget.dart';
 import 'package:threads_clone/3_presentation/pages/home/widgets/timeline-display.widget.dart';
 import 'package:threads_clone/3_presentation/pages/home/widgets/user-display.widget.dart';
-import 'package:threads_clone/3_presentation/core/configs/routes/routes-name.config.dart';
+import 'package:threads_clone/3_presentation/core/configs/router/routes-name.config.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -39,10 +38,7 @@ class HomePage extends StatelessWidget {
               BlocListener<ButtonStateCubit, ButtonState>(
                 listener: (context, state) {
                   if (state is ButtonSuccessState) {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      RoutesNameConfig.authPage,
-                    );
+                    GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.authPage);
                   }
                 },
               ),

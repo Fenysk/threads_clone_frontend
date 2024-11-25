@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.state-cubit.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.state.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/custom_button.widget.dart';
-import 'package:threads_clone/3_presentation/core/configs/routes/routes-name.config.dart';
+import 'package:threads_clone/3_presentation/core/configs/router/routes-name.config.dart';
 import 'package:threads_clone/0_data/dto/login.request.dart';
 import 'package:threads_clone/1_domain/usecases/auth/login.usecase.dart';
 import 'package:threads_clone/service_locator.dart';
@@ -27,11 +28,7 @@ class LoginTab extends StatelessWidget {
       child: BlocListener<ButtonStateCubit, ButtonState>(
         listener: (context, state) {
           if (state is ButtonSuccessState) {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RoutesNameConfig.homePage,
-              (route) => false,
-            );
+            GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.homePage);
           }
 
           if (state is ButtonFailureState) {
