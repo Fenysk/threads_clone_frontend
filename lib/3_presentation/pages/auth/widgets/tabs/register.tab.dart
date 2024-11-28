@@ -8,7 +8,6 @@ import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.sta
 import 'package:threads_clone/3_presentation/core/widgets/button/custom_button.widget.dart';
 import 'package:threads_clone/0_data/dto/register.request.dart';
 import 'package:threads_clone/1_domain/usecases/auth/register.usecase.dart';
-import 'package:threads_clone/3_presentation/pages/home/home.page.dart';
 import 'package:threads_clone/service_locator.dart';
 import 'dart:async';
 

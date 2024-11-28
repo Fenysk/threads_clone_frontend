@@ -1,4 +1,11 @@
-abstract class RootState {}
+import 'package:equatable/equatable.dart';
+
+abstract class RootState extends Equatable {
+  const RootState();
+
+  @override
+  List<Object?> get props => [];
+}
 
 class RootInitialState extends RootState {}
 

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/3_presentation/core/configs/router/routes-name.config.dart';
 import 'package:threads_clone/3_presentation/pages/root/bloc/root.state.dart';
 import 'package:go_router/go_router.dart';
-import 'package:threads_clone/3_presentation/pages/root/bloc/root.state-cubit.dart';
+import 'package:threads_clone/3_presentation/pages/root/bloc/root.cubit.dart';
 
 class RootPage extends StatelessWidget {
   const RootPage({super.key});
@@ -15,26 +15,44 @@ class RootPage extends StatelessWidget {
       body: SafeArea(
         top: false,
         bottom: true,
-        child: BlocProvider<RootStateCubit>(
-          create: (context) => RootStateCubit()..appStarted(),
-          child: BlocBuilder<RootStateCubit, RootState>(
+        child: BlocProvider<RootCubit>(
+          create: (context) => RootCubit()..appStarted(),
+          child: BlocBuilder<RootCubit, RootState>(
             builder: (context, state) {
-              if (state is RootInitialState) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is RootUnauthenticatedState) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.authPage);
-                });
-              } else if (state is RootAuthenticatedState) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.homePage);
-                });
-              }
-              return Container();
+              return switch (state) {
+                RootInitialState() => buildInitialContent(),
+                RootUnauthenticatedState() => buildUnauthenticatedContent(),
+                RootAuthenticatedState() => buildAuthenticatedContent(),
+                _ => Container(),
+              };
             },
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildInitialContent() => const Center(child: CircularProgressIndicator());
+
+  Widget buildUnauthenticatedContent() {
+    return Builder(
+      builder: (context) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.authPage);
+        });
+        return Container();
+      },
+    );
+  }
+
+  Widget buildAuthenticatedContent() {
+    return Builder(
+      builder: (context) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.homePage);
+        });
+        return Container();
+      },
     );
   }
 }

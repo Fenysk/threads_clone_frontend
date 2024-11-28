@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.state-cubit.dart';
 import 'package:threads_clone/3_presentation/core/widgets/button/bloc/button.state.dart';
-import 'package:threads_clone/3_presentation/pages/home/bloc/timeline/timeline.state-cubit.dart';
-import 'package:threads_clone/3_presentation/pages/home/bloc/timeline/timeline.state.dart';
+import 'package:threads_clone/3_presentation/pages/home/widgets/timeline/bloc/timeline.cubit.dart';
+import 'package:threads_clone/3_presentation/pages/home/widgets/timeline/bloc/timeline.state.dart';
 import 'package:threads_clone/0_data/dto/pagination.request.dart';
-import 'package:threads_clone/3_presentation/pages/home/bloc/user/user-display.state-cubit.dart';
+import 'package:threads_clone/3_presentation/pages/home/widgets/user/bloc/user-display.cubit.dart';
 import 'package:threads_clone/3_presentation/pages/home/widgets/logout-button.widget.dart';
-import 'package:threads_clone/3_presentation/pages/home/widgets/timeline-display.widget.dart';
-import 'package:threads_clone/3_presentation/pages/home/widgets/user-display.widget.dart';
+import 'package:threads_clone/3_presentation/pages/home/widgets/timeline/timeline-display.widget.dart';
+import 'package:threads_clone/3_presentation/pages/home/widgets/user/user-display.widget.dart';
 import 'package:threads_clone/3_presentation/core/configs/router/routes-name.config.dart';
 
 class HomePage extends StatelessWidget {
@@ -21,10 +21,10 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => UserDisplayStateCubit()..displayUser()),
+            BlocProvider(create: (context) => UserDisplayCubit()..displayUser()),
             BlocProvider(
-              create: (context) => TimelineStateCubit()
-                ..getForYouTimeline(
+              create: (context) => TimelineCubit()
+                ..fetchForYouTimeline(
                   request: PaginationRequest(
                     limit: 10,
                     page: 1,
@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                   }
                 },
               ),
-              BlocListener<TimelineStateCubit, TimelineState>(
+              BlocListener<TimelineCubit, TimelineState>(
                 listener: (context, state) {
                   if (state is TimelineFailureState) {
                     ScaffoldMessenger.of(context).showSnackBar(

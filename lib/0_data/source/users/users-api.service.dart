@@ -3,8 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:threads_clone/0_data/source/auth/auth-local.service.dart';
 import 'package:threads_clone/3_presentation/core/constants/api_urls.dart';
 import 'package:threads_clone/3_presentation/core/network/dio_client.dart';
-import 'package:threads_clone/0_data/dto/login.request.dart';
-import 'package:threads_clone/0_data/dto/register.request.dart';
 import 'package:threads_clone/service_locator.dart';
 
 abstract class UsersApiService {

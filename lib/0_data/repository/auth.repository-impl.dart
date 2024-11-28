@@ -3,10 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:threads_clone/0_data/dto/login.request.dart';
 import 'package:threads_clone/0_data/dto/register.request.dart';
-import 'package:threads_clone/0_data/models/user/user.model.dart';
 import 'package:threads_clone/0_data/source/auth/auth-api.service.dart';
 import 'package:threads_clone/0_data/source/auth/auth-local.service.dart';
-import 'package:threads_clone/1_domain/entities/user/user.entity.dart';
 import 'package:threads_clone/1_domain/repository/auth.repository.dart';
 import 'package:threads_clone/service_locator.dart';
 

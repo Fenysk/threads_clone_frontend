@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:threads_clone/3_presentation/pages/home/bloc/user/user-display.state-cubit.dart';
-import 'package:threads_clone/3_presentation/pages/home/bloc/user/user-display.state.dart';
+import 'package:threads_clone/3_presentation/pages/home/widgets/user/bloc/user-display.cubit.dart';
+import 'package:threads_clone/3_presentation/pages/home/widgets/user/bloc/user-display.state.dart';
 
 class UserDisplayWidget extends StatelessWidget {
   const UserDisplayWidget({super.key});
@@ -9,7 +9,7 @@ class UserDisplayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    return BlocBuilder<UserDisplayStateCubit, UserDisplayState>(
+    return BlocBuilder<UserDisplayCubit, UserDisplayState>(
       builder: (context, state) {
         return switch (state) {
           UserDisplayLoaded() => buildLoadedContent(state, themeData),
@@ -20,11 +20,11 @@ class UserDisplayWidget extends StatelessWidget {
     );
   }
 
-  Center buildLoadingContent() => const Center(child: CircularProgressIndicator());
+  Widget buildLoadingContent() => const Center(child: CircularProgressIndicator());
 
-  Center buildFailureContent(UserDisplayFailure state) => Center(child: Text(state.errorMessage));
+  Widget buildFailureContent(UserDisplayFailure state) => Center(child: Text(state.errorMessage));
 
-  Center buildLoadedContent(UserDisplayLoaded state, ThemeData themeData) => Center(
+  Widget buildLoadedContent(UserDisplayLoaded state, ThemeData themeData) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
