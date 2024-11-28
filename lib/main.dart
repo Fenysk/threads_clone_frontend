@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:threads_clone/3_presentation/core/configs/theme/theme.config.dart';
-import 'package:threads_clone/3_presentation/core/configs/router/routes.config.dart';
+import 'package:threads_clone/core/configs/theme/theme.config.dart';
+import 'package:threads_clone/core/configs/router/routes.config.dart';
 import 'package:threads_clone/service_locator.dart';
 
 void main() async {
@@ -17,7 +17,7 @@ void main() async {
   setupServiceLocator();
 
   runApp(
-    MainApp(),
+    const MainApp(),
   );
 }
 
