@@ -18,4 +18,21 @@ class PostsRepositoryImpl extends PostsRepository {
       },
     );
   }
+
+  @override
+  Future<Either> unlikePost(String postId) async {
+    Either result = await serviceLocator<PostsApiService>().unlikePost(postId);
+
+    return result.fold(
+      (error) => Left(error),
+      (data) async {
+        if (data is String) {
+          return Right(data);
+        }
+
+        Response response = data;
+        return Right(response);
+      },
+    );
+  }
 }

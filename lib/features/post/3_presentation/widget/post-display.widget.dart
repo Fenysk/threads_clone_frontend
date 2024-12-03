@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:threads_clone/core/utils/date.util.dart';
 import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:threads_clone/features/post/3_presentation/widget/like-button.widget.dart';
 
 class PostDisplayWidget extends StatelessWidget {
   final PostEntity post;
@@ -80,7 +81,7 @@ class PostDisplayWidget extends StatelessWidget {
                 ),
                 getMediaContent(),
                 const SizedBox(height: 16),
-                getFooterContent(themeData),
+                getFooterContent(post, themeData),
               ],
             ),
           ),
@@ -89,10 +90,13 @@ class PostDisplayWidget extends StatelessWidget {
     );
   }
 
-  Widget getFooterContent(ThemeData themeData) {
+  Widget getFooterContent(PostEntity post, ThemeData themeData) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        LikeButtonWidget(
+          post: post,
+        ),
         Row(
           children: [
             const Icon(FluentIcons.heart_20_regular),

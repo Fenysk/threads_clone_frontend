@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:threads_clone/features/post/2_domain/usecase/unlike-post.usecase.dart';
 import 'package:threads_clone/features/user/1_data/repository/users.repository-impl.dart';
 import 'package:threads_clone/features/user/1_data/source/users-api.service.dart';
 import 'package:threads_clone/features/user/2_domain/repository/users.repository.dart';
@@ -54,4 +55,5 @@ void setupServiceLocator() {
   serviceLocator.registerSingleton<GetForYouTimelineUsecase>(GetForYouTimelineUsecase());
   // Posts
   serviceLocator.registerSingleton<LikePostUsecase>(LikePostUsecase());
+  serviceLocator.registerSingleton<UnlikePostUsecase>(UnlikePostUsecase());
 }
