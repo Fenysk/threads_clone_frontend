@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
 import 'package:threads_clone/features/timeline/1_data/dto/pagination.request.dart';
+import 'package:threads_clone/features/timeline/1_data/source/timeline-temporary.service.dart';
 import 'package:threads_clone/features/timeline/3_presentation/bloc/timeline.cubit.dart';
 import 'package:threads_clone/features/timeline/3_presentation/bloc/timeline.state.dart';
 import 'package:threads_clone/features/post/3_presentation/widget/post-display.widget.dart';
+import 'package:threads_clone/service_locator.dart';
 
 class TimelineDisplayWidget extends StatelessWidget {
   const TimelineDisplayWidget({super.key});
@@ -35,12 +38,13 @@ class TimelineDisplayWidget extends StatelessWidget {
   Widget buildLoadingContent() => const Center(child: CircularProgressIndicator());
 
   Widget buildSuccessContent(TimelineSuccessState state) {
+    final List<PostEntity> timeline = serviceLocator<TimelineTemporaryService>().temporaryPosts;
     return SingleChildScrollView(
       child: Column(
         children: List.generate(
-          state.posts.length,
+          timeline.length,
           (index) {
-            final post = state.posts[index];
+            final post = timeline[index];
             return PostDisplayWidget(post: post);
           },
         ),

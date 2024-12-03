@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:threads_clone/features/post/2_domain/usecase/unlike-post.usecase.dart';
+import 'package:threads_clone/features/timeline/1_data/source/timeline-temporary.service.dart';
 import 'package:threads_clone/features/user/1_data/repository/users.repository-impl.dart';
 import 'package:threads_clone/features/user/1_data/source/users-api.service.dart';
 import 'package:threads_clone/features/user/2_domain/repository/users.repository.dart';
@@ -29,14 +30,11 @@ void setupServiceLocator() {
   serviceLocator.registerSingleton<DioClient>(DioClient());
 
   //// Services
-  // Auth
   serviceLocator.registerSingleton<AuthApiService>(AuthApiServiceImpl());
   serviceLocator.registerSingleton<AuthLocalService>(AuthLocalServiceImpl());
-  // Users
   serviceLocator.registerSingleton<UsersApiService>(UsersApiServiceImpl());
-  // Timeline
   serviceLocator.registerSingleton<TimelineApiService>(TimelineApiServiceImpl());
-  // Posts
+  serviceLocator.registerSingleton<TimelineTemporaryService>(TimelineTemporaryServiceImpl());
   serviceLocator.registerSingleton<PostsApiService>(PostsApiServiceImpl());
 
   //// Repositories
@@ -44,16 +42,14 @@ void setupServiceLocator() {
   serviceLocator.registerSingleton<TimelineRepository>(TimelineRepositoryImpl());
   serviceLocator.registerSingleton<PostsRepository>(PostsRepositoryImpl());
   serviceLocator.registerSingleton<UsersRepository>(UsersRepositoryImpl());
+
   //// Usecases
-  // Auth
   serviceLocator.registerSingleton<RegisterUsecase>(RegisterUsecase());
   serviceLocator.registerSingleton<IsLoggedInUsecase>(IsLoggedInUsecase());
   serviceLocator.registerSingleton<GetMyProfileUsecase>(GetMyProfileUsecase());
   serviceLocator.registerSingleton<LogoutUsecase>(LogoutUsecase());
   serviceLocator.registerSingleton<LoginUsecase>(LoginUsecase());
-  // Timeline
   serviceLocator.registerSingleton<GetForYouTimelineUsecase>(GetForYouTimelineUsecase());
-  // Posts
   serviceLocator.registerSingleton<LikePostUsecase>(LikePostUsecase());
   serviceLocator.registerSingleton<UnlikePostUsecase>(UnlikePostUsecase());
 }

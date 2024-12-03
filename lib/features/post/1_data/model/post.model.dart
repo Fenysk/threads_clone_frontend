@@ -15,6 +15,7 @@ class PostModel {
   final String? quoteToId;
 
   final PostCountModel count;
+  final PostEnrichedModel enriched;
 
   final UserModel author;
 
@@ -30,6 +31,7 @@ class PostModel {
     required this.replyToId,
     required this.quoteToId,
     required this.count,
+    required this.enriched,
     required this.author,
   });
 
@@ -46,6 +48,7 @@ class PostModel {
       replyToId: map['replyToId'] as String?,
       quoteToId: map['quoteToId'] as String?,
       count: PostCountModel.fromMap(map['_count'] as Map<String, dynamic>),
+      enriched: PostEnrichedModel.fromMap(map['_enriched'] as Map<String, dynamic>),
       author: UserModel.fromMap(map['Author'] as Map<String, dynamic>),
     );
   }
@@ -74,6 +77,7 @@ extension PostModelExtension on PostModel {
         replyToId: replyToId,
         quoteToId: quoteToId,
         count: count.toEntity(),
+        enriched: enriched.toEntity(),
         Author: author.toEntity(),
       );
 }
@@ -115,5 +119,33 @@ extension PostCountModelExtension on PostCountModel {
         Quotes: quotes,
         Hashtags: hashtags,
         Mentions: mentions,
+      );
+}
+
+class PostEnrichedModel {
+  final bool isLiked;
+  final bool isReposted;
+  final bool isReplied;
+
+  PostEnrichedModel({
+    required this.isLiked,
+    required this.isReposted,
+    required this.isReplied,
+  });
+
+  factory PostEnrichedModel.fromMap(Map<String, dynamic> map) {
+    return PostEnrichedModel(
+      isLiked: map['isLiked'] as bool,
+      isReposted: map['isReposted'] as bool,
+      isReplied: map['isReplied'] as bool,
+    );
+  }
+}
+
+extension PostEnrichedModelExtension on PostEnrichedModel {
+  PostEnrichedEntity toEntity() => PostEnrichedEntity(
+        isLiked: isLiked,
+        isReposted: isReposted,
+        isReplied: isReplied,
       );
 }

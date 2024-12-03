@@ -9,28 +9,29 @@ class LikeButtonWidget extends StatelessWidget {
 
   const LikeButtonWidget({super.key, required this.post});
 
+  void onLikeTap(BuildContext context) async {
+    if (context.read<LikeButtonCubit>().state is UnlikedState) {
+      context.read<LikeButtonCubit>().likePost();
+    }
+    if (context.read<LikeButtonCubit>().state is LikedState) {
+      context.read<LikeButtonCubit>().unlikePost();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return BlocProvider(
-      create: (context) => LikeButtonCubit(post: post),
+      create: (context) => LikeButtonCubit(post: post)..checkIfLiked(),
       child: Builder(
         builder: (context) {
-          return GestureDetector(
-            onTap: () {
-              if (context.read<LikeButtonCubit>().state is LikeInitialState || context.read<LikeButtonCubit>().state is UnlikedState) {
-                print('LikeInitialState detected, calling likePost()');
-                context.read<LikeButtonCubit>().likePost();
-              }
-              if (context.read<LikeButtonCubit>().state is LikedState) {
-                print('LikeUpdatedState detected, calling unlikePost()');
-                context.read<LikeButtonCubit>().unlikePost();
-              }
-            },
+          return InkWell(
+            onTap: () => onLikeTap(context),
             child: BlocBuilder<LikeButtonCubit, LikeButtonState>(
               builder: (context, state) {
                 return switch (state) {
                   LikeInitialState() => buildInitialContent(state, themeData),
+                  LikeLoadingState() => buildLoadingState(themeData),
                   LikedState() => buildLikedContent(state, themeData),
                   UnlikedState() => buildUnlikedContent(state, themeData),
                   LikeFailureState() => buildFailureContent(state, themeData),
@@ -50,6 +51,16 @@ class LikeButtonWidget extends StatelessWidget {
         const Icon(FluentIcons.heart_20_regular),
         if (state.likeCount > 0) const SizedBox(width: 4),
         if (state.likeCount > 0) Text('${state.likeCount}', style: themeData.textTheme.bodySmall),
+      ],
+    );
+  }
+
+  Row buildLoadingState(ThemeData themeData) {
+    return const Row(
+      children: [
+        Icon(FluentIcons.heart_20_regular),
+        SizedBox(width: 4),
+        SizedBox(width: 16, height: 16, child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
       ],
     );
   }

@@ -50,3 +50,10 @@ final class LikeFailureState extends LikeButtonState {
         errorMessage
       ];
 }
+
+final class LikeLoadingState extends LikeButtonState {
+  const LikeLoadingState();
+
+  @override
+  List<Object> get props => [];
+}

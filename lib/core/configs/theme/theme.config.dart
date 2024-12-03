@@ -238,6 +238,10 @@ class AppThemeConfig {
           ),
         ),
         primaryColor: _lightModeBackgroundColor,
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          circularTrackColor: _lightModePrimaryTextColor,
+          linearTrackColor: _lightModePrimaryTextColor,
+        ),
       );
 
   static ThemeData get darkTheme => ThemeData(
@@ -303,5 +307,9 @@ class AppThemeConfig {
           ),
         ),
         primaryColor: _darkModeBackgroundColor,
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          circularTrackColor: _darkModePrimaryTextColor,
+          linearTrackColor: _darkModePrimaryTextColor,
+        ),
       );
 }

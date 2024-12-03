@@ -16,7 +16,7 @@ class TimelineCubit extends Cubit<TimelineState> {
 
       result.fold(
         (error) => emit(TimelineFailureState(errorMessage: error)),
-        (data) => emit(TimelineSuccessState(posts: data)),
+        (data) => emit(TimelineSuccessState()),
       );
     } catch (error) {
       emit(TimelineFailureState(errorMessage: error.toString()));

@@ -13,6 +13,7 @@ class PostEntity {
   final String? quoteToId;
 
   final PostCountEntity count;
+  final PostEnrichedEntity enriched;
 
   final UserEntity Author;
 
@@ -28,8 +29,41 @@ class PostEntity {
     required this.replyToId,
     required this.quoteToId,
     required this.count,
+    required this.enriched,
     required this.Author,
   });
+
+  PostEntity copyWith({
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? editedAt,
+    String? textContent,
+    List<String>? mediaUrls,
+    int? viewsCount,
+    String? authorId,
+    String? replyToId,
+    String? quoteToId,
+    PostCountEntity? count,
+    PostEnrichedEntity? enriched,
+    UserEntity? Author,
+  }) {
+    return PostEntity(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      editedAt: editedAt ?? this.editedAt,
+      textContent: textContent ?? this.textContent,
+      mediaUrls: mediaUrls ?? this.mediaUrls,
+      viewsCount: viewsCount ?? this.viewsCount,
+      authorId: authorId ?? this.authorId,
+      replyToId: replyToId ?? this.replyToId,
+      quoteToId: quoteToId ?? this.quoteToId,
+      count: count ?? this.count,
+      enriched: enriched ?? this.enriched,
+      Author: Author ?? this.Author,
+    );
+  }
 }
 
 class PostCountEntity {
@@ -48,4 +82,46 @@ class PostCountEntity {
     required this.Hashtags,
     required this.Mentions,
   });
+
+  PostCountEntity copyWith({
+    int? Likes,
+    int? Reposts,
+    int? Replies,
+    int? Quotes,
+    int? Hashtags,
+    int? Mentions,
+  }) {
+    return PostCountEntity(
+      Likes: Likes ?? this.Likes,
+      Reposts: Reposts ?? this.Reposts,
+      Replies: Replies ?? this.Replies,
+      Quotes: Quotes ?? this.Quotes,
+      Hashtags: Hashtags ?? this.Hashtags,
+      Mentions: Mentions ?? this.Mentions,
+    );
+  }
+}
+
+class PostEnrichedEntity {
+  final bool isLiked;
+  final bool isReposted;
+  final bool isReplied;
+
+  PostEnrichedEntity({
+    required this.isLiked,
+    required this.isReposted,
+    required this.isReplied,
+  });
+
+  PostEnrichedEntity copyWith({
+    bool? isLiked,
+    bool? isReposted,
+    bool? isReplied,
+  }) {
+    return PostEnrichedEntity(
+      isLiked: isLiked ?? this.isLiked,
+      isReposted: isLiked ?? this.isReposted,
+      isReplied: isLiked ?? this.isReplied,
+    );
+  }
 }

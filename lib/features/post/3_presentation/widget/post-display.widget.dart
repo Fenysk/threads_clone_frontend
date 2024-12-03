@@ -97,13 +97,6 @@ class PostDisplayWidget extends StatelessWidget {
         LikeButtonWidget(
           post: post,
         ),
-        Row(
-          children: [
-            const Icon(FluentIcons.heart_20_regular),
-            if (post.count.Likes > 0) const SizedBox(width: 4),
-            if (post.count.Likes > 0) Text('${post.count.Likes}', style: themeData.textTheme.bodySmall),
-          ],
-        ),
         const SizedBox(width: 32),
         Row(
           children: [
