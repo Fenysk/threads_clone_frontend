@@ -4,7 +4,6 @@ import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
 import 'package:threads_clone/features/post/2_domain/usecase/like-post.usecase.dart';
 import 'package:threads_clone/features/post/2_domain/usecase/unlike-post.usecase.dart';
 import 'package:threads_clone/service_locator.dart';
-
 part 'like.state.dart';
 
 class LikeButtonCubit extends Cubit<LikeButtonState> {

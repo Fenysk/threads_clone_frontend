@@ -5,10 +5,11 @@ import 'package:threads_clone/service_locator.dart';
 
 abstract class AuthLocalService {
   Future<bool> isLoggedIn();
-
   Future<String> getAccessToken();
-
   Future<String> getRefreshToken();
+  Future<void> setAccessToken(String newAccessToken);
+  Future<void> setRefreshToken(String newRefreshToken);
+  Future<void> clearTokens();
 }
 
 class AuthLocalServiceImpl extends AuthLocalService {
@@ -63,5 +64,26 @@ class AuthLocalServiceImpl extends AuthLocalService {
     }
 
     return refreshToken;
+  }
+
+  @override
+  Future<void> setAccessToken(String newAccessToken) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    sharedPreferences.setString('accessToken', newAccessToken);
+  }
+
+  @override
+  Future<void> setRefreshToken(String newRefreshToken) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    sharedPreferences.setString('refreshToken', newRefreshToken);
+  }
+
+  @override
+  Future<void> clearTokens() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.remove('accessToken');
+    sharedPreferences.remove('refreshToken');
   }
 }
