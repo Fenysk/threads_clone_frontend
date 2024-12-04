@@ -30,7 +30,7 @@ class PostDisplayWidget extends StatelessWidget {
             children: [
               CircleAvatar(
                 foregroundImage: NetworkImage(post.Author.Profile?.avatarUrl ?? ''),
-                onForegroundImageError: (exception, stackTrace) => print('Error loading avatar: $exception'),
+                onForegroundImageError: (exception, stackTrace) {},
                 backgroundColor: Colors.grey,
                 child: post.Author.Profile?.avatarUrl == null
                     ? Text(

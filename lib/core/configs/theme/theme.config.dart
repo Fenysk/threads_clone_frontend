@@ -181,6 +181,10 @@ class AppThemeConfig {
             color: _lightModePrimaryTextColor,
           ),
         ),
+        colorScheme: const ColorScheme.light(
+          primary: _lightModePrimaryTextColor,
+          secondary: _darkModePrimaryTextColor,
+        ),
         scaffoldBackgroundColor: _lightModeBackgroundColor,
         textTheme: const TextTheme(
           headlineLarge: _32normalLightModeTextStyle,
@@ -250,6 +254,10 @@ class AppThemeConfig {
             titleTextStyle: const TextStyle(
               color: _darkModePrimaryTextColor,
             )),
+        colorScheme: const ColorScheme.light(
+          primary: _darkModePrimaryTextColor,
+          secondary: _lightModePrimaryTextColor,
+        ),
         scaffoldBackgroundColor: _darkModeBackgroundColor,
         textTheme: const TextTheme(
           headlineLarge: _32boldDarkModeTextStyle,

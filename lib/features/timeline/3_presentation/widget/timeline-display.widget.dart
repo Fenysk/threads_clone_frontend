@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
+import 'package:threads_clone/features/post/3_presentation/widget/create-post.widget.dart';
 import 'package:threads_clone/features/timeline/1_data/dto/pagination.request.dart';
 import 'package:threads_clone/features/timeline/1_data/source/timeline-temporary.service.dart';
 import 'package:threads_clone/features/timeline/3_presentation/bloc/timeline.cubit.dart';
@@ -41,13 +42,16 @@ class TimelineDisplayWidget extends StatelessWidget {
     final List<PostEntity> timeline = serviceLocator<TimelineTemporaryService>().temporaryPosts;
     return SingleChildScrollView(
       child: Column(
-        children: List.generate(
-          timeline.length,
-          (index) {
-            final post = timeline[index];
-            return PostDisplayWidget(post: post);
-          },
-        ),
+        children: [
+          CreatePostWidget(),
+          ...List.generate(
+            timeline.length,
+            (index) {
+              final post = timeline[index];
+              return PostDisplayWidget(post: post);
+            },
+          ),
+        ],
       ),
     );
   }

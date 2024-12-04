@@ -2,7 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
-import 'package:threads_clone/features/post/3_presentation/bloc/like.cubit.dart';
+import 'package:threads_clone/features/post/3_presentation/bloc/like/like.cubit.dart';
 
 class LikeButtonWidget extends StatelessWidget {
   final PostEntity post;

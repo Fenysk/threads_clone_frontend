@@ -24,25 +24,31 @@ class UserDisplayWidget extends StatelessWidget {
 
   Widget buildFailureContent(UserDisplayFailure state) => Center(child: Text(state.errorMessage));
 
-  Widget buildLoadedContent(UserDisplayLoaded state, ThemeData themeData) => Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Vos informations :',
-              style: themeData.textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              state.user.Profile?.pseudo ?? 'No pseudo',
-              style: themeData.textTheme.headlineLarge,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              state.user.email ?? 'No email',
-              style: themeData.textTheme.bodyMedium,
-            ),
-          ],
+  Widget buildLoadedContent(UserDisplayLoaded state, ThemeData themeData) => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.3))),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Vos informations :',
+                style: themeData.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                state.user.Profile?.pseudo ?? 'No pseudo',
+                style: themeData.textTheme.headlineLarge,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                state.user.email ?? 'No email',
+                style: themeData.textTheme.bodyMedium,
+              ),
+            ],
+          ),
         ),
       );
 }
