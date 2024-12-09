@@ -1,0 +1,193 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:threads_clone/core/widgets/custom-button/custom-button.widget.dart';
+import 'package:threads_clone/core/widgets/text-field/custom-text-field.widget.dart';
+import 'package:threads_clone/features/post/3_presentation/bloc/create-post/create-post.cubit.dart';
+import 'package:threads_clone/features/post/3_presentation/widget/action-buttons/create-post-action-button.dart';
+
+class CreatePostModalWidget extends StatelessWidget {
+  final bool isInsideTimeline;
+
+  CreatePostModalWidget({
+    super.key,
+    this.isInsideTimeline = false,
+  });
+
+  final _textContentController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+    return BlocProvider(
+      create: (context) => CreatePostCubit()..loadCurrentUser(),
+      child: BlocBuilder<CreatePostCubit, CreatePostState>(
+        builder: (context, state) {
+          return switch (state) {
+            CreatePostInitialState() => buildInitialContent(),
+            CreatePostLoadedState() => buildLoadedContent(
+                isInsideTimeline,
+                state,
+                themeData,
+              ),
+            _ => buildInitialContent(),
+          };
+        },
+      ),
+    );
+  }
+
+  Widget buildInitialContent() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget buildLoadedContent(
+    bool isInsideTimeline,
+    CreatePostLoadedState state,
+    ThemeData themeData,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(
+        bottom: isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
+        top: !isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
+        left: !isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
+        right: !isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
+      )),
+      child: IgnorePointer(
+        ignoring: isInsideTimeline,
+        child: Column(
+          children: [
+            if (!isInsideTimeline) buildHeader(themeData),
+            buildContentBody(
+              isInsideTimeline,
+              state,
+              themeData,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildHeader(ThemeData themeData) => Container(
+        padding: const EdgeInsets.only(top: 20, bottom: 10, left: 16, right: 16),
+        decoration: BoxDecoration(
+            border: Border(
+          bottom: BorderSide(color: Colors.grey.withOpacity(0.3)),
+        )),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: 80,
+              child: CustomButton(
+                onPressed: () {},
+                text: 'Annuler',
+              ),
+            ),
+            Expanded(
+                child: Center(
+                    child: Text(
+              'Nouveau thread',
+              style: themeData.textTheme.bodyMedium,
+            ))),
+            SizedBox(
+              width: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CustomButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      FluentIcons.more_circle_20_regular,
+                      color: themeData.textTheme.bodyMedium?.color,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget buildContentBody(
+    bool isInsideTimeline,
+    CreatePostLoadedState state,
+    ThemeData themeData,
+  ) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 20,
+        bottom: isInsideTimeline ? 10 : 0,
+        left: 16,
+        right: 16,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              CircleAvatar(
+                radius: 20,
+                foregroundImage: NetworkImage(state.currentUser.Profile?.avatarUrl ?? ''),
+                onForegroundImageError: (exception, stackTrace) {},
+                backgroundColor: Colors.grey,
+                child: state.currentUser.Profile?.avatarUrl == null
+                    ? Text(
+                        state.currentUser.Profile?.pseudo?.toUpperCase().substring(0, 2) ?? '',
+                        style: themeData.textTheme.labelMedium,
+                      )
+                    : null,
+              ),
+            ],
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  state.currentUser.Profile?.pseudo ?? 'No pseudo',
+                  style: themeData.textTheme.labelMedium?.copyWith(
+                    height: 1,
+                  ),
+                ),
+                CustomTextField(
+                  themeData: themeData,
+                  controller: _textContentController,
+                ),
+                Transform.translate(
+                  offset: const Offset(-10, 0),
+                  child: Row(
+                    children: [
+                      CreatePostActionButton(
+                        onPressed: () {},
+                        type: ActionButtonType.medias,
+                      ),
+                      CreatePostActionButton(
+                        onPressed: () {},
+                        type: ActionButtonType.camera,
+                      ),
+                      CreatePostActionButton(
+                        onPressed: () {},
+                        type: ActionButtonType.gif,
+                      ),
+                      CreatePostActionButton(
+                        onPressed: () {},
+                        type: ActionButtonType.hashtag,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

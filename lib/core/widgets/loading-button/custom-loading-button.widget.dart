@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state-cubit.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state-cubit.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomLoadingButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const CustomButton({super.key, required this.text, required this.onPressed});
+  const CustomLoadingButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ButtonStateCubit, ButtonState>(
+    return BlocBuilder<LoadingButtonStateCubit, LoadingButtonState>(
       builder: (context, state) {
         return switch (state) {
-          ButtonLoadingState() => _buildLoading(context),
-          ButtonSuccessState() => _buildSuccess(context),
-          ButtonFailureState() => _buildFailure(context, state),
+          LoadingButtonLoadingState() => _buildLoading(context),
+          LoadingButtonSuccessState() => _buildSuccess(context),
+          LoadingButtonFailureState() => _buildFailure(context, state),
           _ => _buildInitial(context),
         };
       },
@@ -59,7 +59,7 @@ class CustomButton extends StatelessWidget {
     );
   }
 
-  Widget _buildFailure(BuildContext context, ButtonFailureState state) {
+  Widget _buildFailure(BuildContext context, LoadingButtonFailureState state) {
     final themeData = Theme.of(context);
 
     return ElevatedButton(

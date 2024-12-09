@@ -10,8 +10,8 @@ class AppThemeConfig {
   static const Color _darkModePrimaryTextColor = Colors.white;
   static const Color _darkModeSecondaryTextColor = Colors.grey;
 
-  static const Color _lightModeBackgroundColor = Colors.white;
-  static const Color _darkModeBackgroundColor = Colors.black;
+  static final Color _lightModeBackgroundColor = Colors.grey.shade50;
+  static final Color _darkModeBackgroundColor = Colors.grey.shade900;
 
   static final Color _lightModeAppBarBackgroundColor = Colors.grey.shade100;
   static final Color _darkModeAppBarBackgroundColor = Colors.grey.shade800;
@@ -246,6 +246,13 @@ class AppThemeConfig {
           circularTrackColor: _lightModePrimaryTextColor,
           linearTrackColor: _lightModePrimaryTextColor,
         ),
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: _lightModeBackgroundColor,
+          modalBackgroundColor: _lightModeBackgroundColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+        ),
       );
 
   static ThemeData get darkTheme => ThemeData(
@@ -318,6 +325,13 @@ class AppThemeConfig {
         progressIndicatorTheme: const ProgressIndicatorThemeData(
           circularTrackColor: _darkModePrimaryTextColor,
           linearTrackColor: _darkModePrimaryTextColor,
+        ),
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: _darkModeBackgroundColor,
+          modalBackgroundColor: _darkModeBackgroundColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
         ),
       );
 }

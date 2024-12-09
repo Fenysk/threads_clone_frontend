@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state-cubit.dart';
-import 'package:threads_clone/core/widgets/button/custom_button.widget.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state-cubit.dart';
+import 'package:threads_clone/core/widgets/loading-button/custom-loading-button.widget.dart';
 import 'package:threads_clone/features/auth/2_domain/usecase/logout.usecase.dart';
 
 class LogoutButton extends StatelessWidget {
@@ -13,9 +13,9 @@ class LogoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return CustomButton(
+        return CustomLoadingButton(
           text: 'Déconnexion',
-          onPressed: () => context.read<ButtonStateCubit>().execute(usecase: LogoutUsecase()),
+          onPressed: () => context.read<LoadingButtonStateCubit>().execute(usecase: LogoutUsecase()),
         );
       },
     );

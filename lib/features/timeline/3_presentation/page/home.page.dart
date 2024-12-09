@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state-cubit.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state-cubit.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state.dart';
 import 'package:threads_clone/features/timeline/3_presentation/bloc/timeline.cubit.dart';
 import 'package:threads_clone/features/timeline/3_presentation/bloc/timeline.state.dart';
 import 'package:threads_clone/features/timeline/1_data/dto/pagination.request.dart';
@@ -31,13 +31,13 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
             ),
-            BlocProvider(create: (context) => ButtonStateCubit()),
+            BlocProvider(create: (context) => LoadingButtonStateCubit()),
           ],
           child: MultiBlocListener(
             listeners: [
-              BlocListener<ButtonStateCubit, ButtonState>(
+              BlocListener<LoadingButtonStateCubit, LoadingButtonState>(
                 listener: (context, state) {
-                  if (state is ButtonSuccessState) {
+                  if (state is LoadingButtonSuccessState) {
                     GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.authPage);
                   }
                 },

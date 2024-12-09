@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state-cubit.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state.dart';
-import 'package:threads_clone/core/widgets/button/custom_button.widget.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state-cubit.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state.dart';
+import 'package:threads_clone/core/widgets/loading-button/custom-loading-button.widget.dart';
 import 'package:threads_clone/core/configs/router/routes-name.config.dart';
 import 'package:threads_clone/features/auth/1_data/dto/login.request.dart';
 import 'package:threads_clone/features/auth/2_domain/usecase/login.usecase.dart';
@@ -24,14 +24,14 @@ class LoginTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return BlocProvider(
-      create: (context) => ButtonStateCubit(),
-      child: BlocListener<ButtonStateCubit, ButtonState>(
+      create: (context) => LoadingButtonStateCubit(),
+      child: BlocListener<LoadingButtonStateCubit, LoadingButtonState>(
         listener: (context, state) {
-          if (state is ButtonSuccessState) {
+          if (state is LoadingButtonSuccessState) {
             GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.homePage);
           }
 
-          if (state is ButtonFailureState) {
+          if (state is LoadingButtonFailureState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Error logging in: ${state.errorMessage}'),
@@ -77,10 +77,10 @@ class LoginTab extends StatelessWidget {
                 const SizedBox(height: 24),
                 Builder(
                   builder: (buttonContext) {
-                    return CustomButton(
+                    return CustomLoadingButton(
                       text: 'Login',
                       onPressed: () {
-                        buttonContext.read<ButtonStateCubit>().execute(
+                        buttonContext.read<LoadingButtonStateCubit>().execute(
                               usecase: serviceLocator<LoginUsecase>(),
                               params: LoginRequest(
                                 email: _emailController.text,

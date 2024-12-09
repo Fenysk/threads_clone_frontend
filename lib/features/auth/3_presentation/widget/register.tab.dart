@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:threads_clone/features/user/2_domain/repository/users.repository.dart';
 import 'package:threads_clone/core/configs/router/routes-name.config.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state-cubit.dart';
-import 'package:threads_clone/core/widgets/button/bloc/button.state.dart';
-import 'package:threads_clone/core/widgets/button/custom_button.widget.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state-cubit.dart';
+import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state.dart';
+import 'package:threads_clone/core/widgets/loading-button/custom-loading-button.widget.dart';
 import 'package:threads_clone/features/auth/1_data/dto/register.request.dart';
 import 'package:threads_clone/features/auth/2_domain/usecase/register.usecase.dart';
 import 'package:threads_clone/service_locator.dart';
@@ -75,7 +75,7 @@ class RegisterTab extends StatelessWidget {
     final isValid = _formKey.currentState?.validate() ?? false;
 
     if (isValid) {
-      buttonContext.read<ButtonStateCubit>().execute(
+      buttonContext.read<LoadingButtonStateCubit>().execute(
             usecase: serviceLocator<RegisterUsecase>(),
             params: RegisterRequest(
               pseudo: _pseudoController.text,
@@ -93,14 +93,14 @@ class RegisterTab extends StatelessWidget {
     _formKey.currentState?.validate();
 
     return BlocProvider(
-      create: (context) => ButtonStateCubit(),
-      child: BlocListener<ButtonStateCubit, ButtonState>(
+      create: (context) => LoadingButtonStateCubit(),
+      child: BlocListener<LoadingButtonStateCubit, LoadingButtonState>(
         listener: (context, state) {
-          if (state is ButtonSuccessState) {
+          if (state is LoadingButtonSuccessState) {
             GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.homePage);
           }
 
-          if (state is ButtonFailureState) {
+          if (state is LoadingButtonFailureState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
@@ -165,7 +165,7 @@ class RegisterTab extends StatelessWidget {
                   const SizedBox(height: 24),
                   Builder(
                     builder: (buttonContext) {
-                      return CustomButton(
+                      return CustomLoadingButton(
                         text: 'Register',
                         onPressed: () => _onRegisterPressed(buttonContext),
                       );
