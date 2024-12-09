@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state-cubit.dart';
 import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state.dart';
 import 'package:threads_clone/core/widgets/loading-button/custom-loading-button.widget.dart';
-import 'package:threads_clone/core/configs/router/routes-name.config.dart';
 import 'package:threads_clone/features/auth/1_data/dto/login.request.dart';
 import 'package:threads_clone/features/auth/2_domain/usecase/login.usecase.dart';
+import 'package:threads_clone/features/skeleton/3_presentation/page/authenticated.page.dart';
 import 'package:threads_clone/service_locator.dart';
 
 class LoginTab extends StatelessWidget {
@@ -24,11 +23,11 @@ class LoginTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return BlocProvider(
-      create: (context) => LoadingButtonStateCubit(),
-      child: BlocListener<LoadingButtonStateCubit, LoadingButtonState>(
+      create: (context) => LoadingButtonCubit(),
+      child: BlocListener<LoadingButtonCubit, LoadingButtonState>(
         listener: (context, state) {
           if (state is LoadingButtonSuccessState) {
-            GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.homePage);
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const AuthenticatedPage()));
           }
 
           if (state is LoadingButtonFailureState) {
@@ -80,7 +79,7 @@ class LoginTab extends StatelessWidget {
                     return CustomLoadingButton(
                       text: 'Login',
                       onPressed: () {
-                        buttonContext.read<LoadingButtonStateCubit>().execute(
+                        buttonContext.read<LoadingButtonCubit>().execute(
                               usecase: serviceLocator<LoginUsecase>(),
                               params: LoginRequest(
                                 email: _emailController.text,

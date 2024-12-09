@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:threads_clone/core/configs/router/routes-name.config.dart';
 import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
-import 'package:threads_clone/features/post/3_presentation/widget/create-post/create-post.widget.dart';
+import 'package:threads_clone/features/post/3_presentation/widget/create-post/create-post-modal.widget.dart';
 import 'package:threads_clone/features/timeline/1_data/dto/pagination.request.dart';
 import 'package:threads_clone/features/timeline/1_data/source/timeline-temporary.service.dart';
 import 'package:threads_clone/features/timeline/3_presentation/bloc/timeline.cubit.dart';
@@ -53,7 +51,7 @@ class TimelineDisplayWidget extends StatelessWidget {
           snap: true,
           builder: (_, controller) => SingleChildScrollView(
             controller: controller,
-            child: CreatePostWidget(),
+            child: CreatePostModalWidget(),
           ),
         ),
       );
@@ -64,7 +62,7 @@ class TimelineDisplayWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: openCreatePostDrawer,
-            child: CreatePostWidget(isInsideTimeline: true),
+            child: CreatePostModalWidget(isInsideTimeline: true),
           ),
           ...List.generate(
             timeline.length,

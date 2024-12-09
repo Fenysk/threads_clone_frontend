@@ -15,7 +15,7 @@ class LogoutButton extends StatelessWidget {
       builder: (context) {
         return CustomLoadingButton(
           text: 'Déconnexion',
-          onPressed: () => context.read<LoadingButtonStateCubit>().execute(usecase: LogoutUsecase()),
+          onPressed: () => context.read<LoadingButtonCubit>().execute(usecase: LogoutUsecase()),
         );
       },
     );

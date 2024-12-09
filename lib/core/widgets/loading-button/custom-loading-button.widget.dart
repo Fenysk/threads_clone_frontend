@@ -11,7 +11,7 @@ class CustomLoadingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoadingButtonStateCubit, LoadingButtonState>(
+    return BlocBuilder<LoadingButtonCubit, LoadingButtonState>(
       builder: (context, state) {
         return switch (state) {
           LoadingButtonLoadingState() => _buildLoading(context),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:threads_clone/core/configs/theme/theme.config.dart';
-import 'package:threads_clone/core/configs/router/routes.config.dart';
+import 'package:threads_clone/features/skeleton/3_presentation/page/skeleton.page.dart';
 import 'package:threads_clone/service_locator.dart';
 
 void main() async {
@@ -10,8 +10,8 @@ void main() async {
 
   try {
     await dotenv.load();
-  } catch (e) {
-    print('Erreur lors du chargement du fichier .env: $e');
+  } catch (error) {
+    print('Error loading .env file: $error');
   }
 
   setupServiceLocator();
@@ -26,7 +26,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       title: 'Threads Clone',
       localizationsDelegates: const [
         ...GlobalMaterialLocalizations.delegates,
@@ -35,7 +35,7 @@ class MainApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppThemeConfig.lightTheme,
       darkTheme: AppThemeConfig.darkTheme,
-      routerConfig: RoutesConfig.routes,
+      home: const SkeletonPage(),
     );
   }
 }

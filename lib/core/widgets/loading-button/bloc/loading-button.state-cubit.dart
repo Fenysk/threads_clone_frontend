@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state.dart';
 import 'package:threads_clone/core/usecase/usecase.dart';
 
-class LoadingButtonStateCubit extends Cubit<LoadingButtonState> {
-  LoadingButtonStateCubit() : super(LoadingButtonInitialState());
+class LoadingButtonCubit extends Cubit<LoadingButtonState> {
+  LoadingButtonCubit() : super(LoadingButtonInitialState());
 
   void execute({dynamic params, required Usecase usecase}) async {
     emit(LoadingButtonLoadingState());

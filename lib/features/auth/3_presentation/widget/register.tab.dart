@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:threads_clone/features/timeline/3_presentation/page/home.page.dart';
 import 'package:threads_clone/features/user/2_domain/repository/users.repository.dart';
-import 'package:threads_clone/core/configs/router/routes-name.config.dart';
 import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state-cubit.dart';
 import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state.dart';
 import 'package:threads_clone/core/widgets/loading-button/custom-loading-button.widget.dart';
@@ -75,7 +74,7 @@ class RegisterTab extends StatelessWidget {
     final isValid = _formKey.currentState?.validate() ?? false;
 
     if (isValid) {
-      buttonContext.read<LoadingButtonStateCubit>().execute(
+      buttonContext.read<LoadingButtonCubit>().execute(
             usecase: serviceLocator<RegisterUsecase>(),
             params: RegisterRequest(
               pseudo: _pseudoController.text,
@@ -93,11 +92,11 @@ class RegisterTab extends StatelessWidget {
     _formKey.currentState?.validate();
 
     return BlocProvider(
-      create: (context) => LoadingButtonStateCubit(),
-      child: BlocListener<LoadingButtonStateCubit, LoadingButtonState>(
+      create: (context) => LoadingButtonCubit(),
+      child: BlocListener<LoadingButtonCubit, LoadingButtonState>(
         listener: (context, state) {
           if (state is LoadingButtonSuccessState) {
-            GoRouter.of(context).pushReplacementNamed(RoutesNameConfig.homePage);
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => const HomePage()));
           }
 
           if (state is LoadingButtonFailureState) {

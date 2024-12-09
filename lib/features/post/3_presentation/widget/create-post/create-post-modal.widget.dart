@@ -26,6 +26,7 @@ class CreatePostModalWidget extends StatelessWidget {
           return switch (state) {
             CreatePostInitialState() => buildInitialContent(),
             CreatePostLoadedState() => buildLoadedContent(
+                context,
                 isInsideTimeline,
                 state,
                 themeData,
@@ -44,6 +45,7 @@ class CreatePostModalWidget extends StatelessWidget {
   }
 
   Widget buildLoadedContent(
+    BuildContext context,
     bool isInsideTimeline,
     CreatePostLoadedState state,
     ThemeData themeData,
@@ -52,15 +54,12 @@ class CreatePostModalWidget extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border(
         bottom: isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
-        top: !isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
-        left: !isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
-        right: !isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
       )),
       child: IgnorePointer(
         ignoring: isInsideTimeline,
         child: Column(
           children: [
-            if (!isInsideTimeline) buildHeader(themeData),
+            if (!isInsideTimeline) buildHeader(context, themeData),
             buildContentBody(
               isInsideTimeline,
               state,
@@ -72,7 +71,7 @@ class CreatePostModalWidget extends StatelessWidget {
     );
   }
 
-  Widget buildHeader(ThemeData themeData) => Container(
+  Widget buildHeader(BuildContext context, ThemeData themeData) => Container(
         padding: const EdgeInsets.only(top: 20, bottom: 10, left: 16, right: 16),
         decoration: BoxDecoration(
             border: Border(
@@ -85,7 +84,7 @@ class CreatePostModalWidget extends StatelessWidget {
             SizedBox(
               width: 80,
               child: CustomButton(
-                onPressed: () {},
+                onPressed: Navigator.of(context).pop,
                 text: 'Annuler',
               ),
             ),
