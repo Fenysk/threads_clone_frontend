@@ -243,8 +243,8 @@ class AppThemeConfig {
         ),
         primaryColor: _lightModeBackgroundColor,
         progressIndicatorTheme: const ProgressIndicatorThemeData(
-          circularTrackColor: _lightModePrimaryTextColor,
-          linearTrackColor: _lightModePrimaryTextColor,
+          circularTrackColor: Colors.grey,
+          color: _lightModePrimaryTextColor,
         ),
         bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: _lightModeBackgroundColor,
@@ -323,8 +323,8 @@ class AppThemeConfig {
         ),
         primaryColor: _darkModeBackgroundColor,
         progressIndicatorTheme: const ProgressIndicatorThemeData(
-          circularTrackColor: _darkModePrimaryTextColor,
-          linearTrackColor: _darkModePrimaryTextColor,
+          circularTrackColor: Colors.grey,
+          color: _darkModePrimaryTextColor,
         ),
         bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: _darkModeBackgroundColor,

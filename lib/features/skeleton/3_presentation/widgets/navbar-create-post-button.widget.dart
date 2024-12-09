@@ -1,5 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:threads_clone/core/utils/modal.util.dart';
+import 'package:threads_clone/features/create-post/3_presentation/widget/create-post-modal.widget.dart';
 
 class NavbarCreatePostButtonWidget extends StatefulWidget {
   const NavbarCreatePostButtonWidget({super.key});
@@ -18,6 +20,10 @@ class _NavbarCreatePostButtonWidgetState extends State<NavbarCreatePostButtonWid
       onTapDown: (_) => setState(() => _isPressed = true),
       onTapUp: (_) => setState(() => _isPressed = false),
       onTapCancel: () => setState(() => _isPressed = false),
+      onTap: () => ModalUtil().openBottomDrawer(
+        context: context,
+        child: CreatePostModalWidget(),
+      ),
       child: Container(
         width: 48,
         padding: const EdgeInsets.all(8),

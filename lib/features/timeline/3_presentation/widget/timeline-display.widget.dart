@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:threads_clone/core/utils/modal.util.dart';
 import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
-import 'package:threads_clone/features/post/3_presentation/widget/create-post/create-post-modal.widget.dart';
+import 'package:threads_clone/features/create-post/3_presentation/widget/create-post-modal.widget.dart';
 import 'package:threads_clone/features/timeline/1_data/dto/pagination.request.dart';
 import 'package:threads_clone/features/timeline/1_data/source/timeline-temporary.service.dart';
 import 'package:threads_clone/features/timeline/3_presentation/bloc/timeline.cubit.dart';
@@ -41,27 +42,14 @@ class TimelineDisplayWidget extends StatelessWidget {
   Widget buildSuccessContent(BuildContext context, TimelineSuccessState state) {
     final List<PostEntity> timeline = serviceLocator<TimelineTemporaryService>().temporaryPosts;
 
-    void openCreatePostDrawer() async {
-      await showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        useSafeArea: true,
-        builder: (context) => DraggableScrollableSheet(
-          expand: false,
-          snap: true,
-          builder: (_, controller) => SingleChildScrollView(
-            controller: controller,
-            child: CreatePostModalWidget(),
-          ),
-        ),
-      );
-    }
-
     return SingleChildScrollView(
       child: Column(
         children: [
           GestureDetector(
-            onTap: openCreatePostDrawer,
+            onTap: () => ModalUtil().openBottomDrawer(
+              context: context,
+              child: CreatePostModalWidget(),
+            ),
             child: CreatePostModalWidget(isInsideTimeline: true),
           ),
           ...List.generate(

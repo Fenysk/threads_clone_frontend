@@ -2,7 +2,11 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/core/widgets/custom-button/custom-button.widget.dart';
+import 'package:threads_clone/core/widgets/custom-dropdown/custom-dropdown.widget.dart';
 import 'package:threads_clone/core/widgets/text-field/custom-text-field.widget.dart';
+import 'package:threads_clone/features/create-post/2_domain/enum/create-post-visibility.enum.dart';
+import 'package:threads_clone/features/create-post/3_presentation/bloc/change_create_post_visibility/change_create_post_visibility_cubit.dart';
+import 'package:threads_clone/features/create-post/3_presentation/bloc/change_create_post_visibility/change_create_post_visibility_state.dart';
 import 'package:threads_clone/features/post/3_presentation/bloc/create-post/create-post.cubit.dart';
 import 'package:threads_clone/features/post/3_presentation/widget/action-buttons/create-post-action-button.dart';
 
@@ -65,6 +69,10 @@ class CreatePostModalWidget extends StatelessWidget {
               state,
               themeData,
             ),
+            if (!isInsideTimeline) ...[
+              const SizedBox(height: 24),
+              buildPublishSection(context, themeData)
+            ],
           ],
         ),
       ),
@@ -89,11 +97,13 @@ class CreatePostModalWidget extends StatelessWidget {
               ),
             ),
             Expanded(
-                child: Center(
-                    child: Text(
-              'Nouveau thread',
-              style: themeData.textTheme.bodyMedium,
-            ))),
+              child: Center(
+                child: Text(
+                  'Nouveau thread',
+                  style: themeData.textTheme.bodyMedium,
+                ),
+              ),
+            ),
             SizedBox(
               width: 80,
               child: Row(
@@ -184,6 +194,49 @@ class CreatePostModalWidget extends StatelessWidget {
                 )
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildPublishSection(BuildContext context, ThemeData themeData) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: BlocProvider(
+              create: (context) => ChangeCreatePostVisibilityCubit(),
+              child: BlocBuilder<ChangeCreatePostVisibilityCubit, ChangeCreatePostVisibilityState>(
+                builder: (context, state) {
+                  return CustomDropdown(
+                    displayText: state.displayText,
+                    onSelected: context.read<ChangeCreatePostVisibilityCubit>().changeCreatePostVisibility,
+                    items: [
+                      PopupMenuItem<String>(
+                        value: CreatePostVisibilityEnum.everyone.name,
+                        child: const Text('Everyone'),
+                      ),
+                      PopupMenuItem<String>(
+                        value: CreatePostVisibilityEnum.followings.name,
+                        child: const Text('Profiles you follow'),
+                      ),
+                      PopupMenuItem<String>(
+                        value: CreatePostVisibilityEnum.mentioned.name,
+                        child: const Text('Mentioned profiles only'),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(width: 24),
+          CustomButton(
+            onPressed: () {},
+            text: 'Publier',
           ),
         ],
       ),
