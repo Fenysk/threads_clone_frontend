@@ -28,7 +28,8 @@ class UsersApiServiceImpl extends UsersApiService {
 
       return Right(response);
     } on DioException catch (error) {
-      return Left(error.response!.data['message']);
+      if (error.response != null) return Left(error.response!.data['message']);
+      return Left(error.message);
     }
   }
 
