@@ -119,6 +119,14 @@ class PostDisplayWidget extends StatelessWidget {
             Icon(FluentIcons.share_ios_20_regular),
           ],
         ),
+        const SizedBox(width: 32),
+        Row(
+          children: [
+            const Icon(FluentIcons.eye_20_regular),
+            if (post.viewsCount > 0) const SizedBox(width: 4),
+            if (post.viewsCount > 0) Text('${post.viewsCount}', style: themeData.textTheme.bodySmall),
+          ],
+        ),
       ],
     );
   }

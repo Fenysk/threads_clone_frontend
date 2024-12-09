@@ -55,7 +55,7 @@ class TimelineDisplayWidget extends StatelessWidget {
           ...List.generate(
             timeline.length,
             (index) {
-              final post = timeline[index];
+              final post = timeline[timeline.length - 1 - index];
               return PostDisplayWidget(post: post);
             },
           ),
