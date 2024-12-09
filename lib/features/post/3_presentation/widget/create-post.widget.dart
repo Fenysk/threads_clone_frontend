@@ -13,13 +13,13 @@ class CreatePostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return BlocProvider(
-      create: (context) => CreatePostCubit()..fetchCurrentUser(),
+      create: (context) => CreatePostCubit()..loadCurrentUser(),
       child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) {
           return switch (state) {
             CreatePostInitialState() => buildInitialContent(),
             CreatePostLoadedState() => buildLoadedContent(state, themeData),
-            _ => Container(),
+            _ => buildInitialContent(),
           };
         },
       ),
@@ -27,7 +27,9 @@ class CreatePostWidget extends StatelessWidget {
   }
 
   Widget buildInitialContent() {
-    return const Text('Initial');
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
   }
 
   Widget buildLoadedContent(CreatePostLoadedState state, ThemeData themeData) {

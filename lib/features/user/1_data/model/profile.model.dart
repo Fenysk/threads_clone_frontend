@@ -29,7 +29,20 @@ class ProfileModel {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'userId': userId,
+      'pseudo': pseudo,
+      'displayName': displayName,
+      'biography': biography,
+      'link': link,
+      'avatarUrl': avatarUrl,
+    };
+  }
+
   factory ProfileModel.fromJson(String source) => ProfileModel.fromMap(json.decode(source));
+
+  String toJson() => json.encode(toMap());
 }
 
 extension ProfileModelExtension on ProfileModel {

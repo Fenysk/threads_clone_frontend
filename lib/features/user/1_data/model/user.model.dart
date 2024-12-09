@@ -31,7 +31,20 @@ class UserModel {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'email': email,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+      'roles': roles.map((role) => role.toString().split('.').last.toLowerCase()).toList(),
+      'Profile': Profile?.toMap(),
+    };
+  }
+
   factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
+
+  String toJson() => json.encode(toMap());
 }
 
 extension UserModelExtension on UserModel {

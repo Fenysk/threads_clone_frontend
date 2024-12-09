@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:threads_clone/features/user/1_data/model/user.model.dart';
+import 'package:threads_clone/features/user/1_data/source/user-local.service.dart';
 import 'package:threads_clone/features/user/1_data/source/users-api.service.dart';
 import 'package:threads_clone/features/user/2_domain/entity/user.entity.dart';
 import 'package:threads_clone/features/user/2_domain/repository/users.repository.dart';
@@ -22,6 +23,18 @@ class UsersRepositoryImpl extends UsersRepository {
         return Right(user);
       },
     );
+  }
+
+  @override
+  Future<Either> loadMyUserProfile() async {
+    try {
+      UserModel currentUserLoaded = await serviceLocator<UserLocalService>().getCurrentUser();
+      UserEntity userEntity = currentUserLoaded.toEntity();
+
+      return Right(userEntity);
+    } catch (error) {
+      return Left(error);
+    }
   }
 
   @override

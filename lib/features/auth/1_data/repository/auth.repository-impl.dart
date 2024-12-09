@@ -5,6 +5,8 @@ import 'package:threads_clone/features/auth/1_data/dto/register.request.dart';
 import 'package:threads_clone/features/auth/1_data/source/auth-api.service.dart';
 import 'package:threads_clone/features/auth/1_data/source/auth-local.service.dart';
 import 'package:threads_clone/features/auth/2_domain/repository/auth.repository.dart';
+import 'package:threads_clone/features/user/1_data/model/user.model.dart';
+import 'package:threads_clone/features/user/1_data/source/user-local.service.dart';
 import 'package:threads_clone/service_locator.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -21,6 +23,9 @@ class AuthRepositoryImpl extends AuthRepository {
         final user = response.data['user'];
 
         if (accessToken != null) await serviceLocator<AuthLocalService>().setAccessToken(accessToken);
+
+        final userModel = UserModel.fromMap(user);
+        if (user != null) await serviceLocator<UserLocalService>().setCurrentUser(userModel);
 
         return Right(user);
       },
@@ -47,6 +52,9 @@ class AuthRepositoryImpl extends AuthRepository {
 
         if (accessToken != null) await serviceLocator<AuthLocalService>().setAccessToken(accessToken);
         if (refreshToken != null) await serviceLocator<AuthLocalService>().setRefreshToken(refreshToken);
+
+        final userModel = UserModel.fromMap(user);
+        if (user != null) await serviceLocator<UserLocalService>().setCurrentUser(userModel);
 
         return Right(user);
       },
@@ -80,9 +88,13 @@ class AuthRepositoryImpl extends AuthRepository {
 
         final accessToken = response.data['tokens']['accessToken'];
         final refreshToken = response.data['tokens']['refreshToken'];
+        final user = response.data['user'];
 
         if (accessToken != null) await serviceLocator<AuthLocalService>().setAccessToken(accessToken);
         if (refreshToken != null) await serviceLocator<AuthLocalService>().setRefreshToken(refreshToken);
+
+        final userModel = UserModel.fromMap(user);
+        if (user != null) await serviceLocator<UserLocalService>().setCurrentUser(userModel);
 
         return Right(accessToken);
       },

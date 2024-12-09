@@ -34,7 +34,7 @@ class LoginTab extends StatelessWidget {
           if (state is ButtonFailureState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Error creating account: ${state.errorMessage}'),
+                content: Text('Error logging in: ${state.errorMessage}'),
               ),
             );
           }
