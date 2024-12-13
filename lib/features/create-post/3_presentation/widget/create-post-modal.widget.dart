@@ -24,17 +24,24 @@ class CreatePostModalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    return BlocProvider(
-      create: (context) => CreatePostCubit()..loadCurrentUser(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CreatePostCubit()..loadCurrentUser(),
+        ),
+        BlocProvider(
+          create: (context) => ChangeCreatePostVisibilityCubit()..getLastOption(),
+        ),
+      ],
       child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) {
           return switch (state) {
             CreatePostInitialState() => buildInitialContent(),
             CreatePostLoadedState() => buildLoadedContent(
-                context,
-                isInsideTimeline,
-                state,
-                themeData,
+                context: context,
+                isInsideTimeline: isInsideTimeline,
+                state: state,
+                themeData: themeData,
               ),
             _ => buildInitialContent(),
           };
@@ -49,16 +56,16 @@ class CreatePostModalWidget extends StatelessWidget {
     );
   }
 
-  Widget buildLoadedContent(
-    BuildContext context,
-    bool isInsideTimeline,
-    CreatePostLoadedState state,
-    ThemeData themeData,
-  ) {
+  Widget buildLoadedContent({
+    required BuildContext context,
+    required bool isInsideTimeline,
+    required CreatePostLoadedState state,
+    required ThemeData themeData,
+  }) {
     return Container(
       decoration: BoxDecoration(
           border: Border(
-        bottom: isInsideTimeline ? BorderSide(color: Colors.grey.withOpacity(0.3)) : BorderSide.none,
+        bottom: isInsideTimeline ? BorderSide(color: Colors.grey.withAlpha(76)) : BorderSide.none,
       )),
       child: IgnorePointer(
         ignoring: isInsideTimeline,
@@ -72,7 +79,7 @@ class CreatePostModalWidget extends StatelessWidget {
             ),
             if (!isInsideTimeline) ...[
               const SizedBox(height: 24),
-              buildPublishSection(context, themeData)
+              buildPublishSection(context, themeData),
             ],
           ],
         ),
@@ -208,30 +215,27 @@ class CreatePostModalWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: BlocProvider(
-              create: (context) => ChangeCreatePostVisibilityCubit(),
-              child: BlocBuilder<ChangeCreatePostVisibilityCubit, ChangeCreatePostVisibilityState>(
-                builder: (context, state) {
-                  return CustomDropdown(
-                    displayText: state.displayText,
-                    onSelected: context.read<ChangeCreatePostVisibilityCubit>().changeCreatePostVisibility,
-                    items: [
-                      CustomPopupMenuItem<String>(
-                        value: CreatePostVisibilityEnum.everyone.name,
-                        child: const Text('Everyone'),
-                      ),
-                      CustomPopupMenuItem<String>(
-                        value: CreatePostVisibilityEnum.followings.name,
-                        child: const Text('Profiles you follow'),
-                      ),
-                      CustomPopupMenuItem<String>(
-                        value: CreatePostVisibilityEnum.mentioned.name,
-                        child: const Text('Mentioned profiles only'),
-                      ),
-                    ],
-                  );
-                },
-              ),
+            child: BlocBuilder<ChangeCreatePostVisibilityCubit, ChangeCreatePostVisibilityState>(
+              builder: (context, state) {
+                return CustomDropdown(
+                  displayText: state.displayText,
+                  onSelected: context.read<ChangeCreatePostVisibilityCubit>().changeCreatePostVisibility,
+                  items: [
+                    CustomPopupMenuItem<String>(
+                      value: CreatePostVisibilityEnum.everyone.name,
+                      child: const Text('Everyone'),
+                    ),
+                    CustomPopupMenuItem<String>(
+                      value: CreatePostVisibilityEnum.followings.name,
+                      child: const Text('Profiles you follow'),
+                    ),
+                    CustomPopupMenuItem<String>(
+                      value: CreatePostVisibilityEnum.mentioned.name,
+                      child: const Text('Mentioned profiles only'),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
           const SizedBox(width: 24),

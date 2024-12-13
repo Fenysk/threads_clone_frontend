@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:threads_clone/features/create-post/1_data/repository/create-post.repository-impl.dart';
+import 'package:threads_clone/features/create-post/1_data/source/create-post-local.service.dart';
 import 'package:threads_clone/features/create-post/2_domain/repository/create-post.repository.dart';
 import 'package:threads_clone/features/post/2_domain/usecase/unlike-post.usecase.dart';
 import 'package:threads_clone/features/timeline/1_data/source/timeline-temporary.service.dart';
@@ -41,6 +42,7 @@ void setupServiceLocator() {
   serviceLocator.registerSingleton<TimelineApiService>(TimelineApiServiceImpl());
   serviceLocator.registerSingleton<TimelineTemporaryService>(TimelineTemporaryServiceImpl());
   serviceLocator.registerSingleton<PostsApiService>(PostsApiServiceImpl());
+  serviceLocator.registerSingleton<CreatePostLocalService>(CreatePostLocalServiceImpl());
 
   //// Repositories
   serviceLocator.registerSingleton<AuthRepository>(AuthRepositoryImpl());
