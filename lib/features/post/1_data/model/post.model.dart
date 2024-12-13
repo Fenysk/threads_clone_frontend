@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:threads_clone/features/post/2_domain/enum/create-post-visibility.enum.dart';
 import 'package:threads_clone/features/user/1_data/model/user.model.dart';
 import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
 
@@ -13,6 +14,7 @@ class PostModel {
   final String authorId;
   final String? replyToId;
   final String? quoteToId;
+  final VisibilityEnum visibility;
 
   final PostCountModel count;
   final PostEnrichedModel enriched;
@@ -30,6 +32,7 @@ class PostModel {
     required this.authorId,
     required this.replyToId,
     required this.quoteToId,
+    required this.visibility,
     required this.count,
     required this.enriched,
     required this.author,
@@ -47,6 +50,7 @@ class PostModel {
       authorId: map['authorId'] as String,
       replyToId: map['replyToId'] as String?,
       quoteToId: map['quoteToId'] as String?,
+      visibility: map['visibility'] != null ? VisibilityEnum.values.firstWhere((e) => e.name == map['visibility']) : VisibilityEnum.everyone,
       count: PostCountModel.fromMap(map['_count'] as Map<String, dynamic>),
       enriched: PostEnrichedModel.fromMap(map['_enriched'] as Map<String, dynamic>),
       author: UserModel.fromMap(map['Author'] as Map<String, dynamic>),
@@ -76,6 +80,7 @@ extension PostModelExtension on PostModel {
         authorId: authorId,
         replyToId: replyToId,
         quoteToId: quoteToId,
+        visibility: visibility,
         count: count.toEntity(),
         enriched: enriched.toEntity(),
         Author: author.toEntity(),

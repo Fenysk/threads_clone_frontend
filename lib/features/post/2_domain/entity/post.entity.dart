@@ -1,3 +1,4 @@
+import 'package:threads_clone/features/post/2_domain/enum/create-post-visibility.enum.dart';
 import 'package:threads_clone/features/user/2_domain/entity/user.entity.dart';
 
 class PostEntity {
@@ -11,6 +12,7 @@ class PostEntity {
   final String authorId;
   final String? replyToId;
   final String? quoteToId;
+  final VisibilityEnum visibility;
 
   final PostCountEntity count;
   final PostEnrichedEntity enriched;
@@ -28,6 +30,7 @@ class PostEntity {
     required this.authorId,
     required this.replyToId,
     required this.quoteToId,
+    required this.visibility,
     required this.count,
     required this.enriched,
     required this.Author,
@@ -44,6 +47,7 @@ class PostEntity {
     String? authorId,
     String? replyToId,
     String? quoteToId,
+    VisibilityEnum? visibility,
     PostCountEntity? count,
     PostEnrichedEntity? enriched,
     UserEntity? Author,
@@ -59,6 +63,7 @@ class PostEntity {
       authorId: authorId ?? this.authorId,
       replyToId: replyToId ?? this.replyToId,
       quoteToId: quoteToId ?? this.quoteToId,
+      visibility: visibility ?? this.visibility,
       count: count ?? this.count,
       enriched: enriched ?? this.enriched,
       Author: Author ?? this.Author,

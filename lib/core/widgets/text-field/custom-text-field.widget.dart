@@ -7,6 +7,7 @@ class CustomTextField extends TextField {
     super.key,
     super.controller,
     required this.themeData,
+    super.onChanged,
   }) : super(
           style: const TextStyle(fontSize: 16),
           cursorHeight: 16,

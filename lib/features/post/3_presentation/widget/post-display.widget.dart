@@ -91,41 +91,50 @@ class PostDisplayWidget extends StatelessWidget {
   }
 
   Widget getFooterContent(PostEntity post, ThemeData themeData) {
-    return Row(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LikeButtonWidget(
-          post: post,
-        ),
-        const SizedBox(width: 32),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(FluentIcons.comment_20_regular),
-            if (post.count.Replies > 0) const SizedBox(width: 4),
-            if (post.count.Replies > 0) Text('${post.count.Replies}', style: themeData.textTheme.bodySmall),
+            LikeButtonWidget(
+              post: post,
+            ),
+            const SizedBox(width: 32),
+            Row(
+              children: [
+                const Icon(FluentIcons.comment_20_regular),
+                if (post.count.Replies > 0) const SizedBox(width: 4),
+                if (post.count.Replies > 0) Text('${post.count.Replies}', style: themeData.textTheme.bodySmall),
+              ],
+            ),
+            const SizedBox(width: 32),
+            Row(
+              children: [
+                const Icon(FluentIcons.arrow_repeat_all_20_regular),
+                if (post.count.Reposts > 0) const SizedBox(width: 4),
+                if (post.count.Reposts > 0) Text('${post.count.Reposts}', style: themeData.textTheme.bodySmall),
+              ],
+            ),
+            const SizedBox(width: 32),
+            const Row(
+              children: [
+                Icon(FluentIcons.share_ios_20_regular),
+              ],
+            ),
+            const SizedBox(width: 32),
+            Row(
+              children: [
+                const Icon(FluentIcons.eye_20_regular),
+                if (post.viewsCount > 0) const SizedBox(width: 4),
+                if (post.viewsCount > 0) Text('${post.viewsCount}', style: themeData.textTheme.bodySmall),
+              ],
+            ),
           ],
         ),
-        const SizedBox(width: 32),
-        Row(
-          children: [
-            const Icon(FluentIcons.arrow_repeat_all_20_regular),
-            if (post.count.Reposts > 0) const SizedBox(width: 4),
-            if (post.count.Reposts > 0) Text('${post.count.Reposts}', style: themeData.textTheme.bodySmall),
-          ],
-        ),
-        const SizedBox(width: 32),
-        const Row(
-          children: [
-            Icon(FluentIcons.share_ios_20_regular),
-          ],
-        ),
-        const SizedBox(width: 32),
-        Row(
-          children: [
-            const Icon(FluentIcons.eye_20_regular),
-            if (post.viewsCount > 0) const SizedBox(width: 4),
-            if (post.viewsCount > 0) Text('${post.viewsCount}', style: themeData.textTheme.bodySmall),
-          ],
+        Text(
+          'Visibility: ${post.visibility.name}',
+          style: themeData.textTheme.bodySmall,
         ),
       ],
     );

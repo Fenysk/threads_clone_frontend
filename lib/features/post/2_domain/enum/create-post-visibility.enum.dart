@@ -1,4 +1,4 @@
-enum CreatePostVisibilityEnum {
+enum VisibilityEnum {
   everyone,
   followings,
   mentioned,

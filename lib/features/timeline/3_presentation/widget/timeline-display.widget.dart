@@ -45,12 +45,15 @@ class TimelineDisplayWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          GestureDetector(
-            onTap: () => ModalUtil().openBottomDrawer(
-              context: context,
-              child: CreatePostModalWidget(),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () => ModalUtil().openBottomDrawer(
+                context: context,
+                child: CreatePostModalWidget(),
+              ),
+              child: CreatePostModalWidget(isInsideTimeline: true),
             ),
-            child: CreatePostModalWidget(isInsideTimeline: true),
           ),
           ...List.generate(
             timeline.length,

@@ -19,4 +19,5 @@ class ApiUrls {
   // Posts
   static String get likePost => '$baseUrl/likes/like';
   static String get unlikePost => '$baseUrl/likes/unlike';
+  static String get createNewPost => '$baseUrl/posts';
 }

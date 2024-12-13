@@ -5,11 +5,15 @@ import 'package:threads_clone/core/widgets/custom-button/custom-button.widget.da
 import 'package:threads_clone/core/widgets/custom-dropdown/custom-dropdown.widget.dart';
 import 'package:threads_clone/core/widgets/custom-dropdown/custom-pop-menu-item.widget.dart';
 import 'package:threads_clone/core/widgets/text-field/custom-text-field.widget.dart';
-import 'package:threads_clone/features/create-post/2_domain/enum/create-post-visibility.enum.dart';
+import 'package:threads_clone/features/create-post/1_data/dto/create-post.request.dart';
+import 'package:threads_clone/features/create-post/1_data/source/create-post-local.service.dart';
+import 'package:threads_clone/features/post/2_domain/enum/create-post-visibility.enum.dart';
+import 'package:threads_clone/features/create-post/2_domain/usecase/create-new-post.usecase.dart';
 import 'package:threads_clone/features/create-post/3_presentation/bloc/change_create_post_visibility/change_create_post_visibility_cubit.dart';
 import 'package:threads_clone/features/create-post/3_presentation/bloc/change_create_post_visibility/change_create_post_visibility_state.dart';
 import 'package:threads_clone/features/post/3_presentation/bloc/create-post/create-post.cubit.dart';
 import 'package:threads_clone/features/post/3_presentation/widget/action-buttons/create-post-action-button.dart';
+import 'package:threads_clone/service_locator.dart';
 
 class CreatePostModalWidget extends StatelessWidget {
   final bool isInsideTimeline;
@@ -176,6 +180,7 @@ class CreatePostModalWidget extends StatelessWidget {
                 CustomTextField(
                   themeData: themeData,
                   controller: _textContentController,
+                  onChanged: serviceLocator<CreatePostLocalService>().updateTextContent,
                 ),
                 Transform.translate(
                   offset: const Offset(-10, 0),
@@ -222,15 +227,15 @@ class CreatePostModalWidget extends StatelessWidget {
                   onSelected: context.read<ChangeCreatePostVisibilityCubit>().changeCreatePostVisibility,
                   items: [
                     CustomPopupMenuItem<String>(
-                      value: CreatePostVisibilityEnum.everyone.name,
+                      value: VisibilityEnum.everyone.name,
                       child: const Text('Everyone'),
                     ),
                     CustomPopupMenuItem<String>(
-                      value: CreatePostVisibilityEnum.followings.name,
+                      value: VisibilityEnum.followings.name,
                       child: const Text('Profiles you follow'),
                     ),
                     CustomPopupMenuItem<String>(
-                      value: CreatePostVisibilityEnum.mentioned.name,
+                      value: VisibilityEnum.mentioned.name,
                       child: const Text('Mentioned profiles only'),
                     ),
                   ],
@@ -240,9 +245,14 @@ class CreatePostModalWidget extends StatelessWidget {
           ),
           const SizedBox(width: 24),
           CustomButton(
-            onPressed: () {},
+            onPressed: serviceLocator<CreateNewPostUsecase>().execute,
             text: 'Publier',
           ),
+          // TODO: Use cubit for managing publish state and add validation
+          // TODO: - Add loading state when publishing
+          // TODO: - Add error handling
+          // TODO: - Add validation before publishing (text content, media count)
+          // TODO: - Show success message and close modal after publishing
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:threads_clone/features/create-post/1_data/repository/create-post.repository-impl.dart';
 import 'package:threads_clone/features/create-post/1_data/source/create-post-local.service.dart';
 import 'package:threads_clone/features/create-post/2_domain/repository/create-post.repository.dart';
+import 'package:threads_clone/features/create-post/2_domain/usecase/create-new-post.usecase.dart';
 import 'package:threads_clone/features/post/2_domain/usecase/unlike-post.usecase.dart';
 import 'package:threads_clone/features/timeline/1_data/source/timeline-temporary.service.dart';
 import 'package:threads_clone/features/user/1_data/repository/users.repository-impl.dart';
@@ -61,4 +62,5 @@ void setupServiceLocator() {
   serviceLocator.registerSingleton<GetForYouTimelineUsecase>(GetForYouTimelineUsecase());
   serviceLocator.registerSingleton<LikePostUsecase>(LikePostUsecase());
   serviceLocator.registerSingleton<UnlikePostUsecase>(UnlikePostUsecase());
+  serviceLocator.registerSingleton<CreateNewPostUsecase>(CreateNewPostUsecase());
 }

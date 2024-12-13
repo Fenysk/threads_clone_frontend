@@ -1,11 +1,9 @@
 import 'package:threads_clone/features/create-post/1_data/dto/create-post.request.dart';
-import 'package:threads_clone/features/create-post/2_domain/enum/create-post-visibility.enum.dart';
-import 'package:threads_clone/features/post/3_presentation/bloc/create-post/create-post.cubit.dart';
-import 'package:threads_clone/service_locator.dart';
+import 'package:threads_clone/features/post/2_domain/enum/create-post-visibility.enum.dart';
 
 abstract class CreatePostLocalService {
   CreatePostRequest? get newEditingPost;
-  CreatePostVisibilityEnum changePostVisibility(String visibility);
+  VisibilityEnum changePostVisibility(String visibility);
   void updateTextContent(String content);
   void addMediaUrl(String url);
   void removeMediaUrl(String url);
@@ -18,17 +16,15 @@ class CreatePostLocalServiceImpl implements CreatePostLocalService {
   CreatePostRequest? _newEditingPost = CreatePostRequest(
     textContent: '',
     mediaUrls: [],
-    replyToId: '',
-    quoteToId: '',
-    visibilityEnum: CreatePostVisibilityEnum.everyone,
+    visibility: VisibilityEnum.everyone,
   );
 
   @override
   CreatePostRequest? get newEditingPost => _newEditingPost;
 
   @override
-  CreatePostVisibilityEnum changePostVisibility(String visibility) {
-    final visibilityEnum = CreatePostVisibilityEnum.values.firstWhere((element) => element.name == visibility);
+  VisibilityEnum changePostVisibility(String visibility) {
+    final visibilityEnum = VisibilityEnum.values.firstWhere((element) => element.name == visibility);
 
     _updatePost(visibilityEnum: visibilityEnum);
 
@@ -69,9 +65,7 @@ class CreatePostLocalServiceImpl implements CreatePostLocalService {
     _newEditingPost = CreatePostRequest(
       textContent: '',
       mediaUrls: [],
-      replyToId: '',
-      quoteToId: '',
-      visibilityEnum: CreatePostVisibilityEnum.everyone,
+      visibility: VisibilityEnum.everyone,
     );
   }
 
@@ -80,14 +74,14 @@ class CreatePostLocalServiceImpl implements CreatePostLocalService {
     List<String>? mediaUrls,
     String? replyToId,
     String? quoteToId,
-    CreatePostVisibilityEnum? visibilityEnum,
+    VisibilityEnum? visibilityEnum,
   }) {
     _newEditingPost = CreatePostRequest(
       textContent: textContent ?? _newEditingPost?.textContent ?? '',
       mediaUrls: mediaUrls ?? _newEditingPost?.mediaUrls ?? [],
-      replyToId: replyToId ?? _newEditingPost?.replyToId ?? '',
-      quoteToId: quoteToId ?? _newEditingPost?.quoteToId ?? '',
-      visibilityEnum: visibilityEnum ?? _newEditingPost?.visibilityEnum ?? CreatePostVisibilityEnum.everyone,
+      replyToId: replyToId ?? _newEditingPost?.replyToId,
+      quoteToId: quoteToId ?? _newEditingPost?.quoteToId,
+      visibility: visibilityEnum ?? _newEditingPost?.visibility ?? VisibilityEnum.everyone,
     );
   }
 }

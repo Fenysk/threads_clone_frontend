@@ -1,18 +1,18 @@
-import 'package:threads_clone/features/create-post/2_domain/enum/create-post-visibility.enum.dart';
+import 'package:threads_clone/features/post/2_domain/enum/create-post-visibility.enum.dart';
 
 class CreatePostRequest {
   final String textContent;
   final List<String> mediaUrls;
-  final String replyToId;
-  final String quoteToId;
-  final CreatePostVisibilityEnum visibilityEnum;
+  final String? replyToId;
+  final String? quoteToId;
+  final VisibilityEnum visibility;
 
   CreatePostRequest({
     required this.textContent,
     required this.mediaUrls,
-    required this.replyToId,
-    required this.quoteToId,
-    required this.visibilityEnum,
+    this.visibility = VisibilityEnum.everyone,
+    this.replyToId,
+    this.quoteToId,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,7 +21,7 @@ class CreatePostRequest {
       'mediaUrls': mediaUrls,
       'replyToId': replyToId,
       'quoteToId': quoteToId,
-      'visibility': visibilityEnum.name,
+      'visibility': visibility.name,
     };
   }
 
