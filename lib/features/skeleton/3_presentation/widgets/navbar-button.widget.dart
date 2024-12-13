@@ -43,28 +43,31 @@ class _NavbarButtonWidgetState extends State<NavbarButtonWidget> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    return GestureDetector(
-      onTapDown: (_) => setState(() => _isPressed = true),
-      onTapUp: (_) => setState(() => _isPressed = false),
-      onTapCancel: () => setState(() => _isPressed = false),
-      onTap: widget.onTap,
-      onLongPress: widget.onLongPress,
-      child: TweenAnimationBuilder<Color?>(
-        duration: const Duration(milliseconds: 150),
-        tween: ColorTween(
-          begin: Colors.grey,
-          end: _isPressed || widget.isActive ? themeData.colorScheme.primary : Colors.grey,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTapDown: (_) => setState(() => _isPressed = true),
+        onTapUp: (_) => setState(() => _isPressed = false),
+        onTapCancel: () => setState(() => _isPressed = false),
+        onTap: widget.onTap,
+        onLongPress: widget.onLongPress,
+        child: TweenAnimationBuilder<Color?>(
+          duration: const Duration(milliseconds: 150),
+          tween: ColorTween(
+            begin: Colors.grey,
+            end: _isPressed || widget.isActive ? themeData.colorScheme.primary : Colors.grey,
+          ),
+          curve: Curves.easeInOut,
+          builder: (context, color, _) {
+            return Icon(
+              getIconData(
+                type: widget.type,
+                isFilled: widget.isActive || _isPressed,
+              ),
+              color: color,
+            );
+          },
         ),
-        curve: Curves.easeInOut,
-        builder: (context, color, _) {
-          return Icon(
-            getIconData(
-              type: widget.type,
-              isFilled: widget.isActive || _isPressed,
-            ),
-            color: color,
-          );
-        },
       ),
     );
   }
