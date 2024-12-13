@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/core/widgets/custom-button/custom-button.widget.dart';
 import 'package:threads_clone/core/widgets/custom-dropdown/custom-dropdown.widget.dart';
+import 'package:threads_clone/core/widgets/custom-dropdown/custom-pop-menu-item.widget.dart';
 import 'package:threads_clone/core/widgets/text-field/custom-text-field.widget.dart';
 import 'package:threads_clone/features/create-post/2_domain/enum/create-post-visibility.enum.dart';
 import 'package:threads_clone/features/create-post/3_presentation/bloc/change_create_post_visibility/change_create_post_visibility_cubit.dart';
@@ -215,15 +216,15 @@ class CreatePostModalWidget extends StatelessWidget {
                     displayText: state.displayText,
                     onSelected: context.read<ChangeCreatePostVisibilityCubit>().changeCreatePostVisibility,
                     items: [
-                      PopupMenuItem<String>(
+                      CustomPopupMenuItem<String>(
                         value: CreatePostVisibilityEnum.everyone.name,
                         child: const Text('Everyone'),
                       ),
-                      PopupMenuItem<String>(
+                      CustomPopupMenuItem<String>(
                         value: CreatePostVisibilityEnum.followings.name,
                         child: const Text('Profiles you follow'),
                       ),
-                      PopupMenuItem<String>(
+                      CustomPopupMenuItem<String>(
                         value: CreatePostVisibilityEnum.mentioned.name,
                         child: const Text('Mentioned profiles only'),
                       ),

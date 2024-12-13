@@ -13,6 +13,9 @@ class AppThemeConfig {
   static final Color _lightModeBackgroundColor = Colors.grey.shade50;
   static final Color _darkModeBackgroundColor = Colors.grey.shade900;
 
+  static final Color _lightModeSurfaceColor = Colors.grey.shade100;
+  static final Color _darkModeSurfaceColor = Colors.grey.shade800;
+
   static final Color _lightModeAppBarBackgroundColor = Colors.grey.shade100;
   static final Color _darkModeAppBarBackgroundColor = Colors.grey.shade800;
 
@@ -181,9 +184,10 @@ class AppThemeConfig {
             color: _lightModePrimaryTextColor,
           ),
         ),
-        colorScheme: const ColorScheme.light(
+        colorScheme: ColorScheme.light(
           primary: _lightModePrimaryTextColor,
           secondary: _darkModePrimaryTextColor,
+          surface: _lightModeSurfaceColor,
         ),
         scaffoldBackgroundColor: _lightModeBackgroundColor,
         textTheme: const TextTheme(
@@ -261,9 +265,10 @@ class AppThemeConfig {
             titleTextStyle: const TextStyle(
               color: _darkModePrimaryTextColor,
             )),
-        colorScheme: const ColorScheme.light(
+        colorScheme: ColorScheme.light(
           primary: _darkModePrimaryTextColor,
           secondary: _lightModePrimaryTextColor,
+          surface: _darkModeSurfaceColor,
         ),
         scaffoldBackgroundColor: _darkModeBackgroundColor,
         textTheme: const TextTheme(
