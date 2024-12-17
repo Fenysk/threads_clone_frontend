@@ -4,7 +4,7 @@ sealed class TabsState extends Equatable {
   const TabsState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class HomeTab extends TabsState {}
@@ -13,4 +13,13 @@ final class SearchTab extends TabsState {}
 
 final class ActivityTab extends TabsState {}
 
-final class ProfileTab extends TabsState {}
+final class ProfileTab extends TabsState {
+  final String? userId;
+
+  const ProfileTab({required this.userId});
+
+  @override
+  List<Object?> get props => [
+        userId,
+      ];
+}

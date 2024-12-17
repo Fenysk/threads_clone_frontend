@@ -19,6 +19,8 @@ class AppThemeConfig {
   static final Color _lightModeAppBarBackgroundColor = Colors.grey.shade100;
   static final Color _darkModeAppBarBackgroundColor = Colors.grey.shade800;
 
+  static const double globalLetterSpacing = 0.2;
+
   // *** Text Styles ***
   // HeadlineLarge
   static const TextStyle _32normalLightModeTextStyle = TextStyle(
@@ -26,6 +28,7 @@ class AppThemeConfig {
     fontSize: 32,
     fontWeight: FontWeight.normal,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _32boldLightModeTextStyle = TextStyle(
@@ -33,6 +36,7 @@ class AppThemeConfig {
     fontSize: 32,
     fontWeight: FontWeight.bold,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _32normalDarkModeTextStyle = TextStyle(
@@ -40,6 +44,7 @@ class AppThemeConfig {
     fontSize: 32,
     fontWeight: FontWeight.normal,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _32boldDarkModeTextStyle = TextStyle(
@@ -47,6 +52,7 @@ class AppThemeConfig {
     fontSize: 32,
     fontWeight: FontWeight.bold,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   // BodyLarge
@@ -55,6 +61,7 @@ class AppThemeConfig {
     fontSize: 20,
     fontWeight: FontWeight.normal,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _20boldLightModeTextStyle = TextStyle(
@@ -62,6 +69,7 @@ class AppThemeConfig {
     fontSize: 20,
     fontWeight: FontWeight.bold,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _20normalDarkModeTextStyle = TextStyle(
@@ -69,6 +77,7 @@ class AppThemeConfig {
     fontSize: 20,
     fontWeight: FontWeight.normal,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _20boldDarkModeTextStyle = TextStyle(
@@ -76,6 +85,7 @@ class AppThemeConfig {
     fontSize: 20,
     fontWeight: FontWeight.bold,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   // BodyMedium
@@ -84,6 +94,7 @@ class AppThemeConfig {
     fontSize: 16,
     fontWeight: FontWeight.normal,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _16boldLightModeTextStyle = TextStyle(
@@ -91,6 +102,7 @@ class AppThemeConfig {
     fontSize: 16,
     fontWeight: FontWeight.bold,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _16normalDarkModeTextStyle = TextStyle(
@@ -98,6 +110,7 @@ class AppThemeConfig {
     fontSize: 16,
     fontWeight: FontWeight.normal,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _16boldDarkModeTextStyle = TextStyle(
@@ -105,6 +118,7 @@ class AppThemeConfig {
     fontSize: 16,
     fontWeight: FontWeight.bold,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   // BodySmall
@@ -113,6 +127,7 @@ class AppThemeConfig {
     fontSize: 14,
     fontWeight: FontWeight.normal,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _14boldLightModeTextStyle = TextStyle(
@@ -120,6 +135,7 @@ class AppThemeConfig {
     fontSize: 14,
     fontWeight: FontWeight.bold,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _14normalDarkModeTextStyle = TextStyle(
@@ -127,6 +143,7 @@ class AppThemeConfig {
     fontSize: 14,
     fontWeight: FontWeight.normal,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _14boldDarkModeTextStyle = TextStyle(
@@ -134,6 +151,7 @@ class AppThemeConfig {
     fontSize: 14,
     fontWeight: FontWeight.bold,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   // HeadlineMedium
@@ -142,6 +160,7 @@ class AppThemeConfig {
     fontSize: 24,
     fontWeight: FontWeight.normal,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _24boldLightModeTextStyle = TextStyle(
@@ -149,6 +168,7 @@ class AppThemeConfig {
     fontSize: 24,
     fontWeight: FontWeight.bold,
     color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _24normalDarkModeTextStyle = TextStyle(
@@ -156,6 +176,7 @@ class AppThemeConfig {
     fontSize: 24,
     fontWeight: FontWeight.normal,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   static const TextStyle _24boldDarkModeTextStyle = TextStyle(
@@ -163,6 +184,7 @@ class AppThemeConfig {
     fontSize: 24,
     fontWeight: FontWeight.bold,
     color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
   );
 
   // TextField Style

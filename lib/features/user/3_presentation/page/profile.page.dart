@@ -4,29 +4,32 @@ import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.st
 import 'package:threads_clone/core/widgets/loading-button/bloc/loading-button.state.dart';
 import 'package:threads_clone/features/auth/3_presentation/page/auth.page.dart';
 import 'package:threads_clone/features/auth/3_presentation/widget/logout-button.widget.dart';
-import 'package:threads_clone/features/user/3_presentation/bloc/user-display.cubit.dart';
 import 'package:threads_clone/features/user/3_presentation/widget/user-display.widget.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final String? userId;
+
+  const ProfilePage({
+    super.key,
+    this.userId,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => LoadingButtonCubit()),
-        BlocProvider(create: (context) => UserDisplayCubit()..displayUser()),
-      ],
+    return BlocProvider(
+      create: (context) => LoadingButtonCubit(),
       child: BlocListener<LoadingButtonCubit, LoadingButtonState>(
         listener: (context, state) {
           if (state is LoadingButtonSuccessState) {
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const AuthPage()));
           }
         },
-        child: const Column(
+        child: Column(
           children: [
-            UserDisplayWidget(),
-            LogoutButton(),
+            const SizedBox(height: 30),
+            UserDisplayWidget(userId: userId),
+            const Spacer(),
+            const LogoutButton(),
           ],
         ),
       ),

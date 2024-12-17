@@ -11,6 +11,8 @@ class UserModel {
   final List<Role> roles;
   final ProfileModel? Profile;
 
+  final UserCountModel? count;
+
   UserModel({
     required this.id,
     required this.email,
@@ -18,6 +20,7 @@ class UserModel {
     required this.updatedAt,
     required this.roles,
     required this.Profile,
+    required this.count,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
@@ -28,6 +31,7 @@ class UserModel {
       updatedAt: DateTime.parse(map['updatedAt'] as String),
       roles: List<Role>.from((map['roles'] as List).map((role) => Role.values.firstWhere((e) => e.toString().split('.').last.toLowerCase() == role))),
       Profile: ProfileModel.fromMap(map['Profile'] as Map<String, dynamic>),
+      count: map['_count'] != null ? UserCountModel.fromMap(map['_count'] as Map<String, dynamic>) : null,
     );
   }
 
@@ -55,5 +59,46 @@ extension UserModelExtension on UserModel {
         updatedAt: updatedAt,
         roles: roles,
         Profile: Profile?.toEntity(),
+        count: count?.toEntity(),
+      );
+}
+
+class UserCountModel {
+  final int posts;
+  final int likes;
+  final int reposts;
+  final int mentions;
+  final int followers;
+  final int following;
+
+  UserCountModel({
+    required this.posts,
+    required this.likes,
+    required this.reposts,
+    required this.mentions,
+    required this.followers,
+    required this.following,
+  });
+
+  factory UserCountModel.fromMap(Map<String, dynamic> map) {
+    return UserCountModel(
+      posts: map['Posts'] as int,
+      likes: map['Likes'] as int,
+      reposts: map['Reposts'] as int,
+      mentions: map['Mentions'] as int,
+      followers: map['Followers'] as int,
+      following: map['Following'] as int,
+    );
+  }
+}
+
+extension UserCountModelExtension on UserCountModel {
+  UserCountEntity toEntity() => UserCountEntity(
+        Posts: posts,
+        Likes: likes,
+        Reposts: reposts,
+        Mentions: mentions,
+        Followers: followers,
+        Following: following,
       );
 }

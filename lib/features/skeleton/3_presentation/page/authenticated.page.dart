@@ -21,7 +21,7 @@ class AuthenticatedPage extends StatelessWidget {
                   Expanded(
                     child: switch (state) {
                       HomeTab() => const HomePage(),
-                      ProfileTab() => const ProfilePage(),
+                      ProfileTab() => ProfilePage(userId: state.userId),
                       _ => buildLoadingContent(),
                     },
                   ),

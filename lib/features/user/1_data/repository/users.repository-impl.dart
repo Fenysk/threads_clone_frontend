@@ -26,6 +26,23 @@ class UsersRepositoryImpl extends UsersRepository {
   }
 
   @override
+  Future<Either> getUserProfile(String userId) async {
+    Either result = await serviceLocator<UsersApiService>().getUserProfile(userId);
+
+    return result.fold(
+      (error) => Left(error),
+      (data) async {
+        Response response = data;
+
+        UserModel userModel = UserModel.fromMap(response.data);
+        UserEntity user = userModel.toEntity();
+
+        return Right(user);
+      },
+    );
+  }
+
+  @override
   Future<Either> loadMyUserProfile() async {
     try {
       UserModel currentUserLoaded = await serviceLocator<UserLocalService>().getCurrentUser();

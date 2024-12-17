@@ -1,9 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:threads_clone/core/utils/date.util.dart';
 import 'package:threads_clone/features/post/2_domain/entity/post.entity.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:threads_clone/features/post/3_presentation/widget/like-button.widget.dart';
+import 'package:threads_clone/features/skeleton/3_presentation/bloc/tabs_cubit.dart';
+import 'package:threads_clone/features/skeleton/3_presentation/widgets/navbar-button.widget.dart';
 
 class PostDisplayWidget extends StatelessWidget {
   final PostEntity post;
@@ -19,7 +22,7 @@ class PostDisplayWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.3))),
+        border: Border(bottom: BorderSide(color: Colors.grey.withAlpha(77))),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,16 +31,19 @@ class PostDisplayWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(
-                foregroundImage: NetworkImage(post.Author.Profile?.avatarUrl ?? ''),
-                onForegroundImageError: (exception, stackTrace) {},
-                backgroundColor: Colors.grey,
-                child: post.Author.Profile?.avatarUrl == null
-                    ? Text(
-                        post.Author.Profile?.pseudo?.toUpperCase().substring(0, 2) ?? '',
-                        style: themeData.textTheme.labelMedium,
-                      )
-                    : null,
+              GestureDetector(
+                onTap: () => context.read<TabsCubit>().selectTab(NavbarButtonType.profile, userId: post.authorId),
+                child: CircleAvatar(
+                  foregroundImage: NetworkImage(post.Author.Profile?.avatarUrl ?? ''),
+                  onForegroundImageError: (exception, stackTrace) {},
+                  backgroundColor: Colors.grey,
+                  child: post.Author.Profile?.avatarUrl == null
+                      ? Text(
+                          post.Author.Profile?.pseudo?.toUpperCase().substring(0, 2) ?? '',
+                          style: themeData.textTheme.labelMedium,
+                        )
+                      : null,
+                ),
               ),
               // TODO: add line to link with answer
             ],

@@ -7,13 +7,16 @@ part 'tabs_state.dart';
 class TabsCubit extends Cubit<TabsState> {
   TabsCubit() : super(HomeTab());
 
-  void selectTab(NavbarButtonType type) {
+  void selectTab(
+    NavbarButtonType type, {
+    String? userId,
+  }) {
     emit(
       switch (type) {
         NavbarButtonType.home => HomeTab(),
         NavbarButtonType.search => SearchTab(),
         NavbarButtonType.activity => ActivityTab(),
-        NavbarButtonType.profile => ProfileTab(),
+        NavbarButtonType.profile => ProfileTab(userId: userId),
       },
     );
   }
