@@ -23,6 +23,39 @@ class AppThemeConfig {
 
   // *** Text Styles ***
   // HeadlineLarge
+  static const TextStyle _64normalLightModeTextStyle = TextStyle(
+    fontFamily: 'Helvetica',
+    fontSize: 64,
+    fontWeight: FontWeight.normal,
+    color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
+  );
+
+  static const TextStyle _64boldLightModeTextStyle = TextStyle(
+    fontFamily: 'Helvetica',
+    fontSize: 64,
+    fontWeight: FontWeight.bold,
+    color: _lightModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
+  );
+
+  static const TextStyle _64normalDarkModeTextStyle = TextStyle(
+    fontFamily: 'Helvetica',
+    fontSize: 64,
+    fontWeight: FontWeight.normal,
+    color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
+  );
+
+  static const TextStyle _64boldDarkModeTextStyle = TextStyle(
+    fontFamily: 'Helvetica',
+    fontSize: 64,
+    fontWeight: FontWeight.bold,
+    color: _darkModePrimaryTextColor,
+    letterSpacing: globalLetterSpacing,
+  );
+
+  // HeadlineLarge
   static const TextStyle _32normalLightModeTextStyle = TextStyle(
     fontFamily: 'Helvetica',
     fontSize: 32,
@@ -213,6 +246,7 @@ class AppThemeConfig {
         ),
         scaffoldBackgroundColor: _lightModeBackgroundColor,
         textTheme: const TextTheme(
+          titleLarge: _64boldLightModeTextStyle,
           headlineLarge: _32normalLightModeTextStyle,
           headlineMedium: _24normalLightModeTextStyle,
           bodyLarge: _20normalLightModeTextStyle,
@@ -294,6 +328,7 @@ class AppThemeConfig {
         ),
         scaffoldBackgroundColor: _darkModeBackgroundColor,
         textTheme: const TextTheme(
+          titleLarge: _64boldDarkModeTextStyle,
           headlineLarge: _32boldDarkModeTextStyle,
           headlineMedium: _24boldDarkModeTextStyle,
           bodyLarge: _20normalDarkModeTextStyle,
